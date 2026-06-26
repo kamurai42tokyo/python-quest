@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#16110a" />
+  <meta name="description" content="42 Tokyo PythonModule の内容を、人生が進化するキャラと一緒にカテゴリ別クイズで学ぶアプリ" />
+  <title>Python Module Quest — 人生で学ぶ Python</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>🧑‍💻 Python Module Quest</h1>
+    <p class="subtitle">人生を進めながら Python を まなぶ ぼうけん</p>
+  </header>
+
+  <main class="app-main">
+    <!-- スタート画面 -->
+    <section id="start-screen" class="screen">
+      <div class="card rpg-window">
+        <h2>📚 まなぶ カテゴリをえらぶ（1つ）</h2>
+        <div id="category-filters" class="type-filters" role="group" aria-label="出題カテゴリ"></div>
+
+        <div class="char-preview">
+          <div id="preview-sprite" class="preview-sprite"></div>
+          <div class="preview-meta">
+            <span id="preview-name" class="preview-name">—</span>
+            <span class="preview-sub">の人生を、はじまりから生きる</span>
+          </div>
+        </div>
+
+        <h2>📜 しゅつだいの かたち（複数可）</h2>
+        <div id="mode-filters" class="mode-filters" role="group" aria-label="出題形式"></div>
+
+        <label class="count-row">
+          🗺️ 人生の長さ（問題数）
+          <select id="question-count">
+            <option value="5">5問（学生期まで）</option>
+            <option value="10" selected>10問（42tokyo生まで）</option>
+            <option value="20">20問（レジェンドまで）</option>
+          </select>
+        </label>
+
+        <button id="start-btn" class="btn btn-primary">▶ 人生を はじめる</button>
+        <p id="start-error" class="error-text" hidden></p>
+      </div>
+    </section>
+
+    <!-- クイズ画面 -->
+    <section id="quiz-screen" class="screen" hidden>
+      <!-- 進化キャラ ステージ -->
+      <div class="hero-stage">
+        <div class="hero-banner">
+          <span id="char-lv" class="hero-lv">Lv.0</span>
+          <span id="char-title" class="hero-title">赤ちゃん</span>
+          <span id="char-name" class="char-name"></span>
+        </div>
+        <div class="hero-scene">
+          <div id="char-sprite" class="hero-sprite"></div>
+          <div class="hero-ground"></div>
+          <div id="levelup-pop" class="levelup-pop" hidden>進化！</div>
+        </div>
+        <p id="char-line" class="char-line">オギャー。この世に生を受けた。</p>
+      </div>
+
+      <div class="quiz-top">
+        <span id="progress" class="progress-pill">1 / 10</span>
+        <span id="score" class="score-pill">⚔ 正解 0</span>
+      </div>
+      <div class="exp-bar" title="EXP"><div id="progress-fill" class="exp-fill"></div></div>
+
+      <div class="card rpg-window">
+        <span id="q-tag" class="q-tag">出力予測</span>
+        <p id="question-text" class="question-text"></p>
+        <pre id="question-code" class="code-block" hidden></pre>
+        <div id="choices" class="choices"></div>
+        <div id="feedback" class="feedback" hidden></div>
+        <button id="next-btn" class="btn btn-primary" hidden>つぎへ ▶</button>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="result-screen" class="screen" hidden>
+      <div class="card rpg-window result-card">
+        <h2>🏁 人生の節目</h2>
+        <div id="result-char" class="result-hero"></div>
+        <p id="result-rank" class="result-rank"></p>
+        <p id="result-line" class="result-line"></p>
+        <p id="result-score" class="result-score"></p>
+        <p id="result-message" class="result-message"></p>
+        <div class="result-actions">
+          <button id="retry-btn" class="btn btn-primary">▶ もう一度 生きる</button>
+          <button id="home-btn" class="btn btn-ghost">じゅんびに もどる</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>42 Tokyo PythonModule 00〜10 を カテゴリ別に まなぶ</small>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/characters.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

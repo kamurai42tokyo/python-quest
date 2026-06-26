@@ -1,0 +1,547 @@
+:root {
+  /* RPG / ファンタジー配色 (ダーク＋金＋羊皮紙) */
+  --bg: #16110a;
+  --bg-elev: #241a10;
+  --bg-elev-2: #3a2c1a;
+  --text: #f3e9d2;
+  --text-dim: #c0ad88;
+  --primary: #f5c518;        /* ゴールド */
+  --primary-strong: #d4a017;
+  --gold: #f5c518;
+  --gold-dim: #b8860b;
+  --correct: #5fbf6a;
+  --wrong: #e5534b;
+  --border: #6b4f29;         /* ブロンズの枠 */
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --ink: #2a1c08;            /* 金ボタン上の濃い文字 */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* hidden 属性を確実に効かせる (.btn 等の display 指定に勝たせる) */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* 夜の冒険を思わせる、ほのかな光のあるダーク背景 */
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #3a2a14 0%, rgba(58,42,20,0) 60%),
+    radial-gradient(900px 500px at 50% 120%, #1f2d1a 0%, rgba(31,45,26,0) 60%),
+    var(--bg);
+  background-attachment: fixed;
+  /* iPhone のノッチ等セーフエリア対応 */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* ---------- header / footer ---------- */
+.app-header {
+  text-align: center;
+  padding: 20px 16px 8px;
+}
+.app-header h1 { font-size: 1.25rem; }
+.subtitle { color: var(--text-dim); font-size: 0.85rem; }
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 12px 16px 24px;
+}
+
+.app-footer {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 12px;
+}
+
+/* ---------- card ---------- */
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+.card h2 {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  margin: 4px 0 10px;
+  font-weight: 600;
+}
+.card h2:not(:first-child) { margin-top: 22px; }
+
+/* ---------- filters (チップ式) ---------- */
+.type-filters, .mode-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  border: 1px solid var(--border);
+  background: var(--bg-elev-2);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+.chip[aria-pressed="true"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #06283d;
+  font-weight: 700;
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+.count-row select {
+  background: var(--bg-elev-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: linear-gradient(#f7d54a, var(--primary));
+  color: var(--ink);
+  margin-top: 22px;
+  border: 1px solid var(--gold-dim);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.btn-primary:hover { background: var(--primary-strong); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+
+.error-text { color: var(--wrong); font-size: 0.85rem; margin-top: 10px; text-align: center; }
+
+/* ---------- quiz ---------- */
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+.progress-pill, .score-pill {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  color: var(--text-dim);
+}
+.progress-bar {
+  height: 6px;
+  background: var(--bg-elev);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.q-tag {
+  display: inline-block;
+  background: var(--bg-elev-2);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.question-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.code-block {
+  background: #0b1220;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+
+.choices { display: flex; flex-direction: column; gap: 10px; }
+.choice {
+  text-align: left;
+  background: var(--bg-elev-2);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+}
+.choice:hover:not(:disabled) { border-color: var(--primary); }
+.choice:disabled { cursor: default; }
+.choice.correct {
+  border-color: var(--correct);
+  background: rgba(34, 197, 94, 0.15);
+}
+.choice.wrong {
+  border-color: var(--wrong);
+  background: rgba(239, 68, 68, 0.15);
+}
+.choice .mono { font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+.feedback {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+}
+.feedback .verdict { font-weight: 700; }
+.feedback .verdict.ok { color: var(--correct); }
+.feedback .verdict.ng { color: var(--wrong); }
+.feedback code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  background: #0b1220;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.feedback .explain { margin-top: 6px; color: var(--text-dim); }
+
+/* ---------- result ---------- */
+.result-card { text-align: center; }
+.result-score { font-size: 2.4rem; font-weight: 800; color: var(--primary); margin: 14px 0 4px; }
+.result-message { color: var(--text-dim); margin-bottom: 20px; }
+.result-actions { display: flex; flex-direction: column; gap: 10px; }
+.result-actions .btn { margin-top: 0; }
+
+/* ============================================================
+   RPG テーマ追加分
+   ============================================================ */
+
+/* ヘッダーを金色の見出しに */
+.app-header h1 {
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* メッセージウィンドウ風カード (二重枠) */
+.rpg-window {
+  background: linear-gradient(#2a1f12, #20170d);
+  border: 2px solid var(--gold-dim);
+  box-shadow: inset 0 0 0 2px #2a1f12, inset 0 0 0 3px var(--border), var(--shadow);
+  position: relative;
+}
+.rpg-window h2 { color: var(--gold); }
+
+/* ---------- 勇者ステージ ---------- */
+.hero-stage {
+  border: 2px solid var(--gold-dim);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: linear-gradient(#1b2740 0%, #243a2a 70%, #2d3a1f 100%); /* 夜空→草原 */
+  box-shadow: var(--shadow);
+}
+.hero-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--gold-dim);
+  font-size: 0.85rem;
+}
+.hero-lv {
+  color: var(--ink);
+  background: var(--gold);
+  font-weight: 800;
+  border-radius: 6px;
+  padding: 1px 8px;
+  font-variant-numeric: tabular-nums;
+}
+.hero-title { color: var(--gold); font-weight: 700; }
+
+.hero-scene {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+/* 流れる星(夜空の点) */
+.hero-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 40px 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,255,255,0.6) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 45% 50%, rgba(255,255,255,0.4) 50%, transparent 51%);
+  background-size: 200px 100px;
+  animation: starScroll 6s linear infinite;
+}
+.hero-sprite {
+  position: absolute;
+  left: 50%;
+  bottom: 10px; /* 足元が草地に接地するよう下げる */
+  width: 110px;
+  height: 132px;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.hero-sprite svg { width: 100%; height: 100%; overflow: visible; }
+/* ドット絵 canvas: 拡大してもブロックがにじまないよう pixelated */
+.char-canvas {
+  height: 100%;
+  width: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* 横スクロールする地面で「常に歩いている」表現 */
+.hero-ground {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 30px;
+  background:
+    repeating-linear-gradient(90deg, #3f5a2a 0 26px, #355024 26px 52px);
+  border-top: 3px solid #2a3d1c;
+  animation: groundScroll 0.9s linear infinite;
+  z-index: 1;
+}
+.hero-ground::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -6px; height: 6px;
+  background: repeating-linear-gradient(90deg, #4d6b33 0 14px, transparent 14px 40px);
+  animation: groundScroll 0.7s linear infinite;
+}
+
+/* ---------- 歩行アニメーション (かわいいチビ・わたわた歩き) ---------- */
+.h-body { transform-box: fill-box; transform-origin: 50% 100%; animation: heroBob 0.7s ease-in-out infinite; }
+.h-leg, .h-arm { transform-box: fill-box; }
+/* 脚は上下にステップ (足が地面付近に残るので外れて見えない) */
+.h-leg-a { animation: stepA 0.7s ease-in-out infinite; }
+.h-leg-b { animation: stepB 0.7s ease-in-out infinite; }
+/* 腕の振り: 後ろ腕(常時)と、武器なし時の前腕(逆位相)。武器を持つ前腕は静止 */
+.h-arm-b { transform-origin: 50% 0; animation: armSwing 0.7s ease-in-out infinite; }
+.h-arm-f-swing { transform-box: fill-box; transform-origin: 50% 0; animation: armSwingOpp 0.7s ease-in-out infinite; }
+.h-cape { transform-box: fill-box; transform-origin: 50% 0; animation: capeSway 0.9s ease-in-out infinite; }
+.h-spark { animation: sparkle 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.h-aura { animation: auraPulse 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.h-halo { animation: auraPulse 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.h-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 0.5s ease-in-out infinite; }
+
+@keyframes heroBob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-3px) rotate(1.5deg); } }
+@keyframes stepA { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes stepB { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(0); } }
+@keyframes armSwing { 0%, 100% { transform: rotate(12deg); } 50% { transform: rotate(-12deg); } }
+@keyframes armSwingOpp { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+@keyframes capeSway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(4deg); } }
+@keyframes flicker { 0%, 100% { opacity: 0.85; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.18); } }
+@keyframes sparkle { 0%, 100% { opacity: 0.2; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1.2); } }
+@keyframes auraPulse { 0%, 100% { opacity: 0.7; transform: scale(0.97); } 50% { opacity: 1; transform: scale(1.05); } }
+@keyframes groundScroll { from { background-position: 0 0; } to { background-position: -52px 0; } }
+@keyframes starScroll { from { background-position: 0 0; } to { background-position: -200px 0; } }
+
+/* ---------- レベルアップ演出 ---------- */
+.levelup-pop {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0) scale(0.8);
+  z-index: 3;
+  color: var(--ink);
+  background: linear-gradient(#fff3bf, var(--gold));
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  box-shadow: 0 0 14px rgba(245, 197, 24, 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+.levelup-pop.show { animation: levelUp 1.4s ease forwards; }
+@keyframes levelUp {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.7); }
+  20%  { opacity: 1; transform: translateX(-50%) translateY(-2px) scale(1.1); }
+  70%  { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-22px) scale(1); }
+}
+
+/* ---------- EXPバー (進捗) ---------- */
+.exp-bar {
+  height: 10px;
+  background: #1c1409;
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.exp-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #f7d54a, var(--gold));
+  box-shadow: 0 0 8px rgba(245, 197, 24, 0.6);
+  transition: width 0.35s ease;
+}
+
+/* スコア/進捗ピルを金枠に */
+.progress-pill, .score-pill {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: var(--gold-dim);
+  color: var(--text);
+}
+.score-pill { color: var(--gold); font-weight: 700; }
+
+/* ---------- 選択肢をコマンドメニュー風に ---------- */
+.choice {
+  position: relative;
+  padding-left: 30px;
+}
+.choice::before {
+  content: "▶";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  font-size: 0.8rem;
+}
+.choice:hover:not(:disabled)::before { opacity: 1; }
+.choice:hover:not(:disabled) { border-color: var(--gold); }
+
+/* 正誤フィードバックの見出し色 (RPG文言用) */
+.feedback .verdict.ok { color: var(--gold); }
+
+/* ---------- 結果画面 ---------- */
+.result-hero {
+  width: 120px;
+  height: 140px;
+  margin: 6px auto 4px;
+}
+.result-hero svg { width: 100%; height: 100%; overflow: visible; }
+.result-rank {
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+.result-score { color: var(--gold); }
+
+/* ---------- アクセシビリティ: モーション軽減 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .h-body, .h-leg-a, .h-leg-b, .h-arm-f-swing, .h-arm-b, .h-cape, .h-spark, .h-aura,
+  .h-halo, .h-flame,
+  .hero-ground, .hero-ground::after, .hero-scene::before { animation: none !important; }
+}
+
+/* ============================================================
+   Python Module Quest 追加分
+   ============================================================ */
+
+/* 人生ナレーション (キャラステージ下) */
+.char-line {
+  padding: 8px 12px 10px;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  background: rgba(0, 0, 0, 0.28);
+  border-top: 1px solid var(--gold-dim);
+  text-align: center;
+  min-height: 1.6em;
+}
+
+/* 「準備中」カテゴリ (Phase 0) */
+.chip-soon {
+  opacity: 0.4;
+  cursor: not-allowed;
+  font-style: italic;
+}
+
+/* 結果画面: その段階のナレーション */
+.result-line {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin: 2px 0 10px;
+}
+
+/* 解答は等幅で */
+.choice.mono { font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+/* スタート画面: 選択カテゴリの人物プレビュー */
+.char-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--gold-dim);
+  border-radius: 10px;
+}
+.preview-sprite {
+  width: 60px;
+  height: 76px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.preview-sprite canvas { height: 100%; width: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+.preview-meta { line-height: 1.5; }
+.preview-name { color: var(--gold); font-weight: 800; font-size: 1.15rem; }
+.preview-sub { color: var(--text-dim); font-size: 0.85rem; }
+
+/* クイズ画面バナーのキャラ名 */
+.char-name { color: var(--text-dim); font-size: 0.8rem; margin-left: auto; }

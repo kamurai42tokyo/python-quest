@@ -1,0 +1,19 @@
+{
+  "name": "Python Module Quest",
+  "short_name": "PyQuest",
+  "description": "42 Tokyo PythonModule の内容を、人生が進化するキャラと一緒にカテゴリ別クイズで学ぶアプリ",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16110a",
+  "theme_color": "#16110a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
