@@ -3,6 +3,12 @@
 42 Tokyo **PythonModule 00〜10** の内容を、**人生が進化するキャラクター**と一緒に
 **カテゴリ別クイズ**で学べる Web アプリです。`python_collection_quest` の形態を踏襲しています。
 
+## 🎮 今すぐ遊ぶ（インストール不要）
+
+### 👉 https://kamurai42tokyo.github.io/python-quest/
+
+ブラウザで開くだけ。スマホは「ホーム画面に追加」でアプリのように起動でき、オフラインでも動きます（PWA対応）。
+
 > **現在 Phase 2 完了**：5カテゴリ（計81問）＋カテゴリ別の5キャラ（各21段階）が揃いました。
 > 残るは Phase 3（スタイル/PWA仕上げ・公開）です。
 
@@ -55,7 +61,7 @@ python_module_quest/
 - [x] Phase 0：基礎・構文（人物1人・全段階・問題＋ロジック＋3画面）
 - [x] Phase 1：残り4カテゴリの問題データ（計81問・全カテゴリ playable）
 - [x] Phase 2：5キャラ（ハジメ/ラム/タクミ/ラー王/デー太）各21段階のドット絵
-- [ ] Phase 3：スタイル/PWA仕上げ・公開（GitHub Pages）
+- [x] Phase 3：スタイル/PWA仕上げ・GitHub Pages 公開
 
 ---
 Made for learning 42 Tokyo PythonModule.
