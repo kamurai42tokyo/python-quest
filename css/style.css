@@ -545,3 +545,17 @@ body {
 
 /* クイズ画面バナーのキャラ名 */
 .char-name { color: var(--text-dim); font-size: 0.8rem; margin-left: auto; }
+
+/* procedural な背景canvas (キャラの背後・テーマ別) */
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 0;
+  display: block;
+}
+/* 旧・流れる星は背景canvasに置き換えるため無効化 */
+.hero-scene::before { content: none; }

@@ -42,7 +42,8 @@
     current: null,
     used: {},
     recentSet: null,
-    lastId: null
+    lastId: null,
+    sceneBand: null
   };
 
   // ------- ユーティリティ -------
@@ -164,8 +165,21 @@
       Character.reset();
     }
     showScreen("quiz-screen");
+    state.sceneBand = null;
+    updateScene();
     pickCurrent();
     renderQuestion();
+  }
+
+  // 現在のレベル帯(5刻み)に応じてテーマ背景を描く。帯が変わった時だけ再描画。
+  function updateScene() {
+    if (!window.Scene) return;
+    var cv = $("scene-bg");
+    if (!cv) return;
+    var band = Scene.bandOf(state.score);
+    if (band === state.sceneBand) return;
+    state.sceneBand = band;
+    Scene.draw(cv, state.category, band);
   }
 
   function updateGauges() {
@@ -225,6 +239,7 @@
 
     updateGauges();
     if (window.Character) Character.update(state.score);
+    updateScene();
 
     var nb = $("next-btn");
     nb.textContent = (state.index + 1 < state.count) ? "つぎへ ▶" : "けっかへ ▶";
