@@ -1,20 +1,20 @@
 :root {
-  /* RPG / ファンタジー配色 (ダーク＋金＋羊皮紙) */
-  --bg: #16110a;
-  --bg-elev: #241a10;
-  --bg-elev-2: #3a2c1a;
-  --text: #f3e9d2;
-  --text-dim: #c0ad88;
-  --primary: #f5c518;        /* ゴールド */
-  --primary-strong: #d4a017;
-  --gold: #f5c518;
-  --gold-dim: #b8860b;
-  --correct: #5fbf6a;
-  --wrong: #e5534b;
-  --border: #6b4f29;         /* ブロンズの枠 */
+  /* 42 Tokyo 風 配色 (ダーク＋ターコイズグリーン) */
+  --bg: #0d1614;
+  --bg-elev: #14201d;
+  --bg-elev-2: #1d2e2a;
+  --text: #e6f3f0;
+  --text-dim: #8ab3ac;
+  --primary: #2dd4bf;        /* ターコイズ */
+  --primary-strong: #14b8a6;
+  --gold: #2dd4bf;           /* アクセント(旧ゴールド枠をターコイズに) */
+  --gold-dim: #178f80;       /* 濃いターコイズ(枠線) */
+  --correct: #57d977;
+  --wrong: #f87171;
+  --border: #1f5048;         /* ターコイズの枠 */
   --radius: 14px;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --ink: #2a1c08;            /* 金ボタン上の濃い文字 */
+  --ink: #06302b;            /* ターコイズボタン上の濃い文字 */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,8 +33,8 @@ body {
   flex-direction: column;
   /* 夜の冒険を思わせる、ほのかな光のあるダーク背景 */
   background:
-    radial-gradient(1200px 600px at 50% -10%, #3a2a14 0%, rgba(58,42,20,0) 60%),
-    radial-gradient(900px 500px at 50% 120%, #1f2d1a 0%, rgba(31,45,26,0) 60%),
+    radial-gradient(1200px 600px at 50% -10%, #0f3a36 0%, rgba(15,58,54,0) 60%),
+    radial-gradient(900px 500px at 50% 120%, #10302b 0%, rgba(16,48,43,0) 60%),
     var(--bg);
   background-attachment: fixed;
   /* iPhone のノッチ等セーフエリア対応 */
@@ -99,7 +99,7 @@ body {
 .chip[aria-pressed="true"] {
   background: var(--primary);
   border-color: var(--primary);
-  color: #06283d;
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -135,7 +135,7 @@ body {
 }
 .btn:active { transform: scale(0.98); }
 .btn-primary {
-  background: linear-gradient(#f7d54a, var(--primary));
+  background: linear-gradient(#5ef0db, var(--primary));
   color: var(--ink);
   margin-top: 22px;
   border: 1px solid var(--gold-dim);
@@ -271,9 +271,9 @@ body {
 
 /* メッセージウィンドウ風カード (二重枠) */
 .rpg-window {
-  background: linear-gradient(#2a1f12, #20170d);
+  background: linear-gradient(#16221f, #0f1a18);
   border: 2px solid var(--gold-dim);
-  box-shadow: inset 0 0 0 2px #2a1f12, inset 0 0 0 3px var(--border), var(--shadow);
+  box-shadow: inset 0 0 0 2px #16221f, inset 0 0 0 3px var(--border), var(--shadow);
   position: relative;
 }
 .rpg-window h2 { color: var(--gold); }
@@ -284,7 +284,7 @@ body {
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 12px;
-  background: linear-gradient(#1b2740 0%, #243a2a 70%, #2d3a1f 100%); /* 夜空→草原 */
+  background: linear-gradient(#10201d 0%, #0e1816 100%); /* 背景canvasの下地(ダークターコイズ) */
   box-shadow: var(--shadow);
 }
 .hero-banner {
@@ -398,14 +398,14 @@ body {
   transform: translateX(-50%) translateY(0) scale(0.8);
   z-index: 3;
   color: var(--ink);
-  background: linear-gradient(#fff3bf, var(--gold));
+  background: linear-gradient(#b6f5ec, var(--gold));
   border: 1px solid var(--gold-dim);
   border-radius: 999px;
   padding: 4px 14px;
   font-weight: 800;
   font-size: 0.85rem;
   white-space: nowrap;
-  box-shadow: 0 0 14px rgba(245, 197, 24, 0.7);
+  box-shadow: 0 0 14px rgba(45, 212, 191, 0.7);
   opacity: 0;
   pointer-events: none;
 }
@@ -420,7 +420,7 @@ body {
 /* ---------- EXPバー (進捗) ---------- */
 .exp-bar {
   height: 10px;
-  background: #1c1409;
+  background: #0c1614;
   border: 1px solid var(--gold-dim);
   border-radius: 999px;
   overflow: hidden;
@@ -429,8 +429,8 @@ body {
 .exp-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #f7d54a, var(--gold));
-  box-shadow: 0 0 8px rgba(245, 197, 24, 0.6);
+  background: linear-gradient(90deg, #5ef0db, var(--gold));
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.6);
   transition: width 0.35s ease;
 }
 

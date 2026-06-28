@@ -3,7 +3,7 @@
  * 静的アセットをキャッシュし、オフラインでも動作させる(PWA)。
  * アセットを更新したら CACHE のバージョンを上げること。
  */
-var CACHE = "pmq-v3";
+var CACHE = "pmq-v4";
 var ASSETS = [
   "./",
   "./index.html",
