@@ -34,10 +34,15 @@
   var state = {
     category: "基礎・構文",
     selectedModes: new Set(["output", "fill", "debug"]),
-    questions: [],
+    count: 10,
     index: 0,
     score: 0,
-    answered: false
+    answered: false,
+    pool: [],
+    current: null,
+    used: {},
+    recentSet: null,
+    lastId: null
   };
 
   // ------- ユーティリティ -------
@@ -90,6 +95,7 @@
     return {
       src: src,
       formatLabel: MODE_LABEL[src.format] || src.format,
+      difficulty: src.difficulty || 1,
       questionText: src.question,
       code: src.code || null,
       correctText: src.answer,
@@ -98,60 +104,84 @@
     };
   }
 
-  // 出題セットを作る。プールが少なければ重複を許容しつつ直近を避ける。
-  function buildQuestionSet(count) {
-    var pool = buildPool();
-    if (pool.length === 0) return [];
-    var recent = new Set(getRecent());
-    var fresh = pool.filter(function (q) { return !recent.has(q.id); });
-    var bag = shuffle(fresh.length ? fresh : pool);
-    var used = {};
-    var out = [];
-    while (out.length < count) {
-      if (bag.length === 0) {
-        // 1巡したら再補充 (重複許容)。同一問の連続だけは避ける。
-        bag = shuffle(pool);
-      }
-      var q = bag.shift();
-      if (out.length > 0 && out[out.length - 1].src.id === q.id && pool.length > 1) {
-        bag.push(q); // 直前と同じなら後回し
-        continue;
-      }
-      out.push(makeQuestion(q));
-      used[q.id] = true;
+  // 現在のキャラLv(=正解数)で難易度を決める。
+  // Lv0-10=易(1) / Lv11-15=難(2) / Lv16-20=最難(3)。
+  // ＝ エンジニアに成長(Lv11/16以上)してから問題が難しくなる(苦戦中は易しいまま)。
+  function difficultyForLevel(level) {
+    return level <= 10 ? 1 : level <= 15 ? 2 : 3;
+  }
+
+  // 候補配列から1問選ぶ。未使用かつ直近でない→未使用→(尽きたら)既出も許容(直前は除く)。
+  function preferFrom(arr, used, recent, lastId) {
+    if (!arr.length) return null;
+    var a = arr.filter(function (q) { return !used[q.id] && !recent.has(q.id) && q.id !== lastId; });
+    if (a.length) return sample(a, 1)[0];
+    a = arr.filter(function (q) { return !used[q.id] && q.id !== lastId; });
+    if (a.length) return sample(a, 1)[0];
+    a = arr.filter(function (q) { return q.id !== lastId; });   // 既出を許容(同難易度内で繰り返す)
+    if (a.length) return sample(a, 1)[0];
+    return sample(arr, 1)[0];
+  }
+
+  // 難易度は「目標を死守」: 目標難易度が尽きたら同難易度を繰り返し、
+  // それでも無ければ初めて難易度差を広げる。
+  // → 苦戦してLvが上がらない限り、難しい問題は出ない。
+  function pickByTier(pool, tier, used, recent, lastId) {
+    var exact = pool.filter(function (q) { return (q.difficulty || 1) === tier; });
+    var chosen = preferFrom(exact, used, recent, lastId);
+    if (chosen) return chosen;  // 目標難易度に問題があれば、繰り返してでもそれを使う
+    for (var dist = 1; dist <= 2; dist++) {
+      var near = pool.filter(function (q) { return Math.abs((q.difficulty || 1) - tier) === dist; });
+      chosen = preferFrom(near, used, recent, lastId);
+      if (chosen) return chosen;
     }
-    return out;
+    return sample(pool, 1)[0];
+  }
+
+  // 現在のレベルに応じた難易度で次の1問を抽選し state.current にセット。
+  function pickCurrent() {
+    var tier = difficultyForLevel(state.score);
+    var src = pickByTier(state.pool, tier, state.used, state.recentSet, state.lastId);
+    if (!src) { state.current = null; return false; }
+    state.used[src.id] = true;
+    state.lastId = src.id;
+    state.current = makeQuestion(src);
+    return true;
   }
 
   // ------- クイズ進行 -------
   function startQuiz() {
-    var count = parseInt($("question-count").value, 10);
-    state.questions = buildQuestionSet(count);
+    state.pool = buildPool();
+    state.count = parseInt($("question-count").value, 10);
     state.index = 0;
     state.score = 0;
+    state.used = {};
+    state.recentSet = new Set(getRecent());
+    state.lastId = null;
     if (window.Character) {
       Character.select(state.category);
       Character.mount();
       Character.reset();
     }
     showScreen("quiz-screen");
+    pickCurrent();
     renderQuestion();
   }
 
   function updateGauges() {
-    var total = state.questions.length;
+    var total = state.count;
     $("score").textContent = "⚔ 正解 " + state.score;
     $("progress-fill").style.width = (total ? (state.score / total * 100) : 0) + "%";
   }
 
   function renderQuestion() {
     state.answered = false;
-    var q = state.questions[state.index];
-    var total = state.questions.length;
+    var q = state.current;
+    var total = state.count;
 
     $("progress").textContent = (state.index + 1) + " / " + total;
     updateGauges();
-    $("q-tag").textContent = q.formatLabel;
+    $("q-tag").textContent = q.formatLabel + (q.difficulty >= 3 ? " ★★" : q.difficulty === 2 ? " ★" : "");
     $("question-text").textContent = q.questionText;
 
     var codeEl = $("question-code");
@@ -197,19 +227,19 @@
     if (window.Character) Character.update(state.score);
 
     var nb = $("next-btn");
-    nb.textContent = (state.index + 1 < state.questions.length) ? "つぎへ ▶" : "けっかへ ▶";
+    nb.textContent = (state.index + 1 < state.count) ? "つぎへ ▶" : "けっかへ ▶";
     nb.hidden = false;
   }
 
   function nextQuestion() {
     state.index++;
-    if (state.index < state.questions.length) renderQuestion();
+    if (state.index < state.count) { pickCurrent(); renderQuestion(); }
     else showResult();
   }
 
   function showResult() {
     showScreen("result-screen");
-    var total = state.questions.length;
+    var total = state.count;
     var pct = total ? Math.round(state.score / total * 100) : 0;
 
     if (window.Character) {
