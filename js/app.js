@@ -281,6 +281,8 @@
     ["start-screen", "quiz-screen", "result-screen"].forEach(function (s) {
       $(s).hidden = (s !== id);
     });
+    // 出題中はヘッダー(タイトル/サブタイトル)を隠して上に詰める(スマホのスクロール削減)
+    document.body.classList.toggle("in-quiz", id === "quiz-screen");
     window.scrollTo(0, 0);
   }
 
