@@ -291,7 +291,7 @@ window.Character = (function () {
   // ====================================================================
   var CHARS = {
     /* ---------------- 基礎・構文 : ハジメ ---------------- */
-    "基礎・構文": { name: "ハジメ", stages: [
+    "基礎・構文": { name: "ハジメ", desc: "教科書に忠実な堅実派", stages: [
       { title: "赤ちゃん", line: "オギャー。ハジメ、この世に生を受けた。", sprite: { body: "baby", outfit: "p", outfitEdge: "P", hairStyle: "none", item: "pacifier" } },
       { title: "幼児", line: "よちよち歩き。積み木を高く積むのが好き。", sprite: { body: "baby", outfit: "r", outfitEdge: "R", item: "toy" } },
       { title: "小学生", line: "ランドセルを背負い登校。九九を完璧に暗記した。", sprite: { body: "adult", short: true, outfit: "r", outfitEdge: "R", item: "book" } },
@@ -316,7 +316,7 @@ window.Character = (function () {
     ] },
 
     /* ---------------- 関数・関数型 : ラム ---------------- */
-    "関数・関数型": { name: "ラム", stages: [
+    "関数・関数型": { name: "ラム", desc: "高校中退、独学の天才肌", stages: [
       { title: "赤ちゃん", line: "ラム、誕生。よく泣く、感受性の強い赤ちゃん。", sprite: { body: "baby", outfit: "M", outfitEdge: "R", hairStyle: "none", item: "pacifier" } },
       { title: "幼児", line: "みんなの輪より、ひとり遊びが好きな子。", sprite: { body: "baby", outfit: "V", outfitEdge: "B", item: "toy" } },
       { title: "小学生", line: "絵を描くのが好きな、ごく普通の小学生。", sprite: { body: "adult", short: true, outfit: "V", outfitEdge: "Q", hairStyle: "long" } },
@@ -341,7 +341,7 @@ window.Character = (function () {
     ] },
 
     /* ---------------- OOP : タクミ ---------------- */
-    "OOP": { name: "タクミ", stages: [
+    "OOP": { name: "タクミ", desc: "ロン毛のおしゃれ設計者", stages: [
       { title: "赤ちゃん", line: "タクミ、誕生。何でも分解したがる子。", sprite: { body: "baby", outfit: "b", outfitEdge: "B", hairStyle: "none", item: "pacifier" } },
       { title: "幼児", line: "ブロック遊びに夢中。組み立てが好き。", sprite: { body: "baby", outfit: "b", outfitEdge: "B", item: "toy" } },
       { title: "小学生", line: "プラモ作りが得意。説明書を熟読する。", sprite: { body: "adult", short: true, outfit: "b", outfitEdge: "B", hairStyle: "long", item: "book" } },
@@ -366,7 +366,7 @@ window.Character = (function () {
     ] },
 
     /* ---------------- プログラム構成・堅牢性 : ラー王 ---------------- */
-    "プログラム構成・堅牢性": { name: "ラー王", stages: [
+    "プログラム構成・堅牢性": { name: "ラー王", desc: "現代に蘇ったエジプト王", stages: [
       { title: "黄金の柩", line: "黄金の柩に納められし、古の王。", sprite: { body: "coffin" } },
       { title: "包帯のミイラ", line: "幾千年、包帯に包まれ眠り続ける。", sprite: { body: "adult", mummyHead: true, wrap: true, outfit: "w", outfitEdge: "g" } },
       { title: "目覚めるミイラ", line: "ある日、その双眸に光が灯る。", sprite: { body: "adult", mummyHead: true, eyeGlow: "q", wrap: true, outfit: "w", outfitEdge: "g", aura: "screen" } },
@@ -391,7 +391,7 @@ window.Character = (function () {
     ] },
 
     /* ---------------- データ操作 : デー太(犬) ---------------- */
-    "データ操作": { name: "デー太", stages: [
+    "データ操作": { name: "デー太", desc: "取ってくるのが得意な犬", stages: [
       { title: "子犬", line: "デー太、生まれたての子犬。", sprite: { body: "adult", short: true, headType: "dog", outfit: "D", outfitEdge: "o", collar: "r" } },
       { title: "子犬(やんちゃ)", line: "ボール遊びに夢中。", sprite: { body: "adult", short: true, headType: "dog", outfit: "D", outfitEdge: "o", collar: "r", item: "ball", tongue: true } },
       { title: "やんちゃ犬", line: "投げたボールを必ず取ってくる。", sprite: { body: "adult", headType: "dog", outfit: "D", outfitEdge: "o", collar: "b", item: "ball" } },
@@ -453,6 +453,7 @@ window.Character = (function () {
     if (nameEl) nameEl.textContent = nameOf();
   }
   function nameOf() { return (current && current.name) || "?"; }
+  function infoOf(category) { var c = CHARS[category]; return c ? { name: c.name, desc: c.desc || "" } : { name: "", desc: "" }; }
   function showLevelUp(l) {
     if (!popEl) return;
     popEl.textContent = "進化！ " + titleOf(l);
@@ -469,7 +470,7 @@ window.Character = (function () {
   return {
     MAX_LEVEL: MAX_LEVEL,
     select: select, mount: mount, reset: reset, update: update,
-    titleOf: titleOf, lineOf: lineOf, canvasFor: canvasFor,
+    titleOf: titleOf, lineOf: lineOf, canvasFor: canvasFor, infoOf: infoOf,
     nameOf: function () { return (current && current.name) || "?"; }
   };
 })();

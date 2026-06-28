@@ -519,29 +519,42 @@ body {
 /* 解答は等幅で */
 .choice.mono { font-family: "SF Mono", Menlo, Consolas, monospace; }
 
-/* スタート画面: 選択カテゴリの人物プレビュー */
-.char-preview {
+/* スタート画面: キャラ一覧 (横長カードを縦積み) */
+.char-gallery { display: flex; flex-direction: column; gap: 8px; }
+.char-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 14px;
-  padding: 10px 14px;
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px solid var(--gold-dim);
-  border-radius: 10px;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: var(--bg-elev-2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
 }
-.preview-sprite {
-  width: 60px;
-  height: 76px;
+.char-card:hover { border-color: var(--primary); }
+.char-card[aria-checked="true"] {
+  border-color: var(--primary);
+  background: rgba(45, 212, 191, 0.10);
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.35), inset 0 0 0 1px var(--primary);
+}
+.char-card-sprite {
+  width: 46px;
+  height: 58px;
   flex: 0 0 auto;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
-.preview-sprite canvas { height: 100%; width: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
-.preview-meta { line-height: 1.5; }
-.preview-name { color: var(--gold); font-weight: 800; font-size: 1.15rem; }
-.preview-sub { color: var(--text-dim); font-size: 0.85rem; }
+.char-card-sprite canvas { height: 100%; width: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+.char-card-text { flex: 1; min-width: 0; line-height: 1.35; }
+.char-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.char-card-name { color: var(--gold); font-weight: 800; font-size: 1.05rem; }
+.char-card-cat { color: var(--text-dim); font-size: 0.78rem; white-space: nowrap; }
+.char-card-desc { color: var(--text-dim); font-size: 0.8rem; display: block; }
 
 /* クイズ画面バナーのキャラ名 */
 .char-name { color: var(--text-dim); font-size: 0.8rem; margin-left: auto; }

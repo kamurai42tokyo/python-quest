@@ -292,26 +292,38 @@
 
   // ------- フィルタUI -------
   function renderFilters() {
-    // カテゴリ: 単一選択 (ラジオ的)
-    var catBox = $("category-filters");
+    // カテゴリ = キャラ一覧 (横長カードを縦積み・単一選択)
+    var gallery = $("category-gallery");
     CATEGORIES.forEach(function (c) {
-      var ready = countOfCategory(c) > 0;
-      var chip = document.createElement("button");
-      chip.className = "chip" + (ready ? "" : " chip-soon");
-      chip.type = "button";
-      chip.textContent = ready ? c : c + "（準備中）";
-      chip.setAttribute("aria-pressed", c === state.category ? "true" : "false");
-      if (!ready) { chip.disabled = true; }
-      chip.addEventListener("click", function () {
-        if (!ready) return;
+      var info = (window.Character && Character.infoOf) ? Character.infoOf(c) : { name: c, desc: "" };
+      var card = document.createElement("button");
+      card.type = "button";
+      card.className = "char-card";
+      card.setAttribute("role", "radio");
+      card.setAttribute("aria-checked", c === state.category ? "true" : "false");
+
+      var sprite = document.createElement("div");
+      sprite.className = "char-card-sprite";
+      if (window.Character) { Character.select(c); sprite.appendChild(Character.canvasFor(0, 3)); }
+      card.appendChild(sprite);
+
+      var text = document.createElement("div");
+      text.className = "char-card-text";
+      var head = document.createElement("div");
+      head.className = "char-card-head";
+      var nm = document.createElement("span"); nm.className = "char-card-name"; nm.textContent = info.name || c;
+      var cat = document.createElement("span"); cat.className = "char-card-cat"; cat.textContent = c;
+      head.appendChild(nm); head.appendChild(cat);
+      var desc = document.createElement("span"); desc.className = "char-card-desc"; desc.textContent = info.desc;
+      text.appendChild(head); text.appendChild(desc);
+      card.appendChild(text);
+
+      card.addEventListener("click", function () {
         state.category = c;
-        catBox.querySelectorAll(".chip").forEach(function (b) {
-          b.setAttribute("aria-pressed", "false");
-        });
-        chip.setAttribute("aria-pressed", "true");
-        updatePreview();
+        gallery.querySelectorAll(".char-card").forEach(function (el) { el.setAttribute("aria-checked", "false"); });
+        card.setAttribute("aria-checked", "true");
       });
-      catBox.appendChild(chip);
+      gallery.appendChild(card);
     });
 
     // 形式: 複数選択
@@ -331,16 +343,6 @@
     });
   }
 
-  // スタート画面: 選択中カテゴリの人物(Lv0=はじまりの姿)を表示
-  function updatePreview() {
-    if (!window.Character) return;
-    Character.select(state.category);
-    var host = $("preview-sprite");
-    if (host) { host.innerHTML = ""; host.appendChild(Character.canvasFor(0, 4)); }
-    var nm = $("preview-name");
-    if (nm) nm.textContent = Character.nameOf();
-  }
-
   function validateStart() {
     var err = $("start-error");
     if (state.selectedModes.size === 0) {
@@ -358,7 +360,6 @@
   // ------- 初期化 -------
   function init() {
     renderFilters();
-    updatePreview();
     $("start-btn").addEventListener("click", function () {
       if (validateStart()) startQuiz();
     });
