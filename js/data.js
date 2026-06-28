@@ -593,5 +593,861 @@ window.QUIZ_DATA = [
   { id: "rob-h3-05", category: "プログラム構成・堅牢性", module: "M06", format: "output", difficulty: 3,
     question: "このファイルを直接 python3 で実行したときの出力は?", code: 'print(__name__ == "__main__")',
     answer: "True", distractors: ["False", "__main__", "エラー"],
-    explanation: "直接実行時 __name__ は '__main__'。import 時は False になる。" }
+    explanation: "直接実行時 __name__ は '__main__'。import 時は False になる。" },
+
+  /* =====================================================================
+     基礎・構文 (追加)
+     ===================================================================== */
+  // ===== difficulty 1 (11問: fill×3, debug×2, output×6) =====
+  { id: "base-n1-01", category: "基礎・構文", module: "M00", format: "output", difficulty: 1,
+    question: "出力を順に並べると?", code: "i = 0\nwhile i < 3:\n    print(i)\n    i += 1",
+    answer: "0 1 2", distractors: ["1 2 3", "0 1 2 3", "0 0 0"],
+    explanation: "i は 0,1,2 と進み 3 で条件 i<3 が偽になり終了する。" },
+
+  { id: "base-n1-02", category: "基礎・構文", module: "M00", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: 'print("hello"[-1])',
+    answer: "o", distractors: ["h", "hello", "-1"],
+    explanation: "負のインデックス -1 は末尾の文字を指す。" },
+
+  { id: "base-n1-03", category: "基礎・構文", module: "M00", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: 'print("cat".upper())',
+    answer: "CAT", distractors: ["cat", "Cat", "CAT()"],
+    explanation: "upper() は文字列をすべて大文字にする。" },
+
+  { id: "base-n1-04", category: "基礎・構文", module: "M00", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: 'print("a" in "cat")',
+    answer: "True", distractors: ["False", "1", "a"],
+    explanation: "in は左の文字列が右に含まれるかを判定する。\"cat\" に \"a\" はある。" },
+
+  { id: "base-n1-05", category: "基礎・構文", module: "M00", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: 'x = 5\nprint("big" if x > 3 else "small")',
+    answer: "big", distractors: ["small", "True", "5"],
+    explanation: "三項演算 A if 条件 else B。x>3 が真なので \"big\"。" },
+
+  { id: "base-n1-06", category: "基礎・構文", module: "M00", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: 'a, b = 1, 2\nprint(a + b)',
+    answer: "3", distractors: ["12", "1 2", "(1, 2)"],
+    explanation: "多重代入で a=1, b=2 となり、a+b は 3。" },
+
+  { id: "base-n1-07", category: "基礎・構文", module: "M00", format: "fill", difficulty: 1,
+    question: "文字列をすべて大文字にする文字列メソッドは? (___ を埋める)", code: 'print("hi".___())',
+    answer: "upper", distractors: ["toupper", "capital", "big"],
+    explanation: "文字列メソッド upper() で大文字に変換する。" },
+
+  { id: "base-n1-08", category: "基礎・構文", module: "M00", format: "fill", difficulty: 1,
+    question: "条件が真の間くり返すループのキーワードは? (___ を埋める)", code: "___ i < 3:\n    i += 1",
+    answer: "while", distractors: ["for", "loop", "repeat"],
+    explanation: "while は条件が真である間、処理をくり返す。" },
+
+  { id: "base-n1-09", category: "基礎・構文", module: "M00", format: "fill", difficulty: 1,
+    question: "ある値が並びに「含まれない」ことを表す演算子は? (___ を埋める)", code: 'print("z" ___ "cat")',
+    answer: "not in", distractors: ["is not", "!in", "out of"],
+    explanation: "not in は「含まれない」を判定し、含まれなければ True を返す。" },
+
+  { id: "base-n1-10", category: "基礎・構文", module: "M00", format: "debug", difficulty: 1,
+    question: "このコードはエラーになる。正しい1行目は?", code: "for i in range(3)\n    print(i)",
+    answer: "for i in range(3):", distractors: ["for i in range(3);", "for (i in range(3)):", "foreach i in range(3):"],
+    explanation: "for 文の行末にはコロン : が必要。" },
+
+  { id: "base-n1-11", category: "基礎・構文", module: "M00", format: "debug", difficulty: 1,
+    question: "文字列と数値を + で連結しようとしてエラーになる。正しい書き方は?", code: 'print("count: " + 5)',
+    answer: 'print("count: " + str(5))', distractors: ['print("count: " + int(5))', 'print("count: " * 5)', 'print("count: " , + 5)'],
+    explanation: "文字列と数値は直接 + できない。str(5) で文字列に変換する。" },
+
+  // ===== difficulty 2 (9問: fill×2, debug×2, output×5) =====
+  { id: "base-n2-01", category: "基礎・構文", module: "M00", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "print(True + True)",
+    answer: "2", distractors: ["True", "TrueTrue", "1"],
+    explanation: "True は数値として 1 扱い。1+1=2 になる。" },
+
+  { id: "base-n2-02", category: "基礎・構文", module: "M00", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: 'print("python"[1:4])',
+    answer: "yth", distractors: ["pyt", "ytho", "yth o"],
+    explanation: "スライス [1:4] は index 1,2,3 の文字。4 は含まない。" },
+
+  { id: "base-n2-03", category: "基礎・構文", module: "M00", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "a, b = 1, 2\na, b = b, a\nprint(a, b)",
+    answer: "2 1", distractors: ["1 2", "2 2", "1 1"],
+    explanation: "a, b = b, a で値が入れ替わる(スワップ)。" },
+
+  { id: "base-n2-04", category: "基礎・構文", module: "M00", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "print(divmod(17, 5))",
+    answer: "(3, 2)", distractors: ["(2, 3)", "3 2", "(3.4, 2)"],
+    explanation: "divmod(a,b) は (商, 余り) のタプルを返す。17÷5 は商3 余り2。" },
+
+  { id: "base-n2-05", category: "基礎・構文", module: "M00", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: 'print("a", end="!")\nprint("b")',
+    answer: "a!b", distractors: ["a! b", "a\nb", "ab!"],
+    explanation: "end=\"!\" で改行の代わりに ! を出すため、a!b が1行で続く。" },
+
+  { id: "base-n2-06", category: "基礎・構文", module: "M00", format: "fill", difficulty: 2,
+    question: "x が 2 のとき \"two\" を出したい。空欄のキーワードは? (___ を埋める)", code: "if x == 1:\n    print('one')\n___ x == 2:\n    print('two')",
+    answer: "elif", distractors: ["else if", "elseif", "else"],
+    explanation: "2つ目以降の条件分岐は elif を使う。" },
+
+  { id: "base-n2-07", category: "基礎・構文", module: "M00", format: "fill", difficulty: 2,
+    question: "ループを途中で完全に抜けるキーワードは? (___ を埋める)", code: "for i in range(5):\n    if i == 3:\n        ___",
+    answer: "break", distractors: ["continue", "stop", "exit"],
+    explanation: "break はループ自体を抜ける。continue は次の周回へ進むだけ。" },
+
+  { id: "base-n2-08", category: "基礎・構文", module: "M00", format: "debug", difficulty: 2,
+    question: "リストの全要素を表示したいが1行目が誤っている。正しい1行目は?", code: "for i = items:\n    print(i)",
+    answer: "for i in items:", distractors: ["for i == items:", "for i of items:", "foreach i in items:"],
+    explanation: "for ループは for 変数 in 反復対象: と書く。= ではなく in。" },
+
+  { id: "base-n2-09", category: "基礎・構文", module: "M00", format: "debug", difficulty: 2,
+    question: "偶数だけスキップして奇数を表示したい。空欄に入るキーワードは?", code: "for i in range(5):\n    if i % 2 == 0:\n        ___\n    print(i)",
+    answer: "continue", distractors: ["break", "pass", "return"],
+    explanation: "continue は残りをスキップして次の周回へ進む。偶数のとき print を飛ばす。" },
+
+  // ===== difficulty 3 (9問: output×9, 引っかけ) =====
+  { id: "base-n3-01", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(2 + 3 * 2 ** 2)",
+    answer: "14", distractors: ["20", "100", "26"],
+    explanation: "優先順位は ** > * > +。2**2=4、3*4=12、2+12=14。" },
+
+  { id: "base-n3-02", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(2 ** -1)",
+    answer: "0.5", distractors: ["-2", "2", "0"],
+    explanation: "負の指数は逆数になる。2の-1乗は 1/2 = 0.5(float)。" },
+
+  { id: "base-n3-03", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(int(-3.7))",
+    answer: "-3", distractors: ["-4", "-3.7", "3"],
+    explanation: "int() は切り捨てではなく0方向への切り詰め。-3.7 は -3 になる。" },
+
+  { id: "base-n3-04", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(1 == 1.0 == True)",
+    answer: "True", distractors: ["False", "1", "1.0"],
+    explanation: "連鎖比較。1==1.0 かつ 1.0==True(=1) がともに成立し True。" },
+
+  { id: "base-n3-05", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: 'print(0 or "x")',
+    answer: "x", distractors: ["True", "0", "False"],
+    explanation: "or は最初の真の値を返す。0 は偽なので右の \"x\" が返る。" },
+
+  { id: "base-n3-06", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(5 or 1 / 0)",
+    answer: "5", distractors: ["エラー", "True", "0.2"],
+    explanation: "短絡評価。5 が真なので右側 1/0 は評価されず例外も出ない。" },
+
+  { id: "base-n3-07", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: 'print(round(0.5), round(1.5), round(2.5))',
+    answer: "0 2 2", distractors: ["1 2 3", "0 1 2", "1 2 2"],
+    explanation: "Python の round は偶数丸め(銀行丸め)。0.5→0, 1.5→2, 2.5→2。" },
+
+  { id: "base-n3-08", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(-7 // 2)",
+    answer: "-4", distractors: ["-3", "-3.5", "3"],
+    explanation: "// は負の無限大方向への切り捨て(floor)。-3.5 は -4 になる。" },
+
+  { id: "base-n3-09", category: "基礎・構文", module: "M00", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(-7 % 3)",
+    answer: "2", distractors: ["-1", "1", "-2"],
+    explanation: "Python の % の結果は割る数の符号に従う。-7%3 は 2(正)になる。" },
+
+  /* =====================================================================
+     関数・関数型 (追加)
+     ===================================================================== */
+  // ===== d1 : 15問 (fn-n1-01〜15) =====
+  { id: "fn-n1-01", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(list(zip([1, 2, 3], ['a', 'b', 'c'])))",
+    answer: "[(1, 'a'), (2, 'b'), (3, 'c')]", distractors: ["[1, 'a', 2, 'b', 3, 'c']", "[(1, 2, 3), ('a', 'b', 'c')]", "[['1a'], ['2b'], ['3c']]"],
+    explanation: "zip は各リストの同じ位置の要素をタプルにまとめる。" },
+
+  { id: "fn-n1-02", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "for i, c in enumerate(['a', 'b']):\n    print(i, c)",
+    answer: "0 a\n1 b", distractors: ["1 a\n2 b", "a 0\nb 1", "0 1\na b"],
+    explanation: "enumerate は (添字, 要素) を 0 から順に返す。" },
+
+  { id: "fn-n1-03", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(sorted([3, 1, 2], reverse=True))",
+    answer: "[3, 2, 1]", distractors: ["[1, 2, 3]", "[3, 1, 2]", "[2, 1, 3]"],
+    explanation: "reverse=True で降順にソートされる。" },
+
+  { id: "fn-n1-04", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(max([1, 5, 3], key=lambda x: -x))",
+    answer: "1", distractors: ["5", "3", "-1"],
+    explanation: "key=-x で大小が反転するので、最も小さい 1 が max になる。" },
+
+  { id: "fn-n1-05", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(all([True, True, False]))",
+    answer: "False", distractors: ["True", "None", "0"],
+    explanation: "all は全要素が真のときだけ True。False が含まれるので False。" },
+
+  { id: "fn-n1-06", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(any([0, 0, 3]))",
+    answer: "True", distractors: ["False", "3", "None"],
+    explanation: "any は1つでも真があれば True。3 が真なので True。" },
+
+  { id: "fn-n1-07", category: "関数・関数型", module: "M10", format: "fill", difficulty: 1,
+    question: "リスト nums を昇順に並べた新しいリストを返す組み込み関数は?",
+    code: "result = ___(nums)", answer: "sorted",
+    distractors: ["sort", "order", "reverse"],
+    explanation: "sorted(iterable) は元を変えずソート済みの新リストを返す。" },
+
+  { id: "fn-n1-08", category: "関数・関数型", module: "M10", format: "fill", difficulty: 1,
+    question: "2つのリストを位置ごとに組にして反復したい。空欄に入る関数は?",
+    code: "for a, b in ___(xs, ys):\n    print(a, b)", answer: "zip",
+    distractors: ["map", "pair", "join"],
+    explanation: "zip(xs, ys) で同じ位置の要素を組にして反復できる。" },
+
+  { id: "fn-n1-09", category: "関数・関数型", module: "M10", format: "fill", difficulty: 1,
+    question: "反復中に添字も一緒に欲しい。空欄に入る関数は?",
+    code: "for i, x in ___(items):\n    print(i, x)", answer: "enumerate",
+    distractors: ["index", "count", "range"],
+    explanation: "enumerate(items) は (添字, 要素) を順に返す。" },
+
+  { id: "fn-n1-10", category: "関数・関数型", module: "M10", format: "fill", difficulty: 1,
+    question: "全要素が条件を満たすか調べる組み込み関数は?",
+    code: "print(___(x > 0 for x in nums))", answer: "all",
+    distractors: ["any", "every", "each"],
+    explanation: "all は全要素が真のとき True を返す。" },
+
+  { id: "fn-n1-11", category: "関数・関数型", module: "M10", format: "debug", difficulty: 1,
+    question: "リストを大きい順に並べたい。正しいのは?",
+    code: "nums = [3, 1, 2]\nprint(___)  # [3, 2, 1] にしたい", answer: "sorted(nums, reverse=True)",
+    distractors: ["sorted(nums, desc=True)", "sorted(nums, reverse)", "sort(nums, reverse=True)"],
+    explanation: "降順は sorted(..., reverse=True)。reverse はキーワード引数で True を渡す。" },
+
+  { id: "fn-n1-12", category: "関数・関数型", module: "M10", format: "debug", difficulty: 1,
+    question: "文字列の長さで並べ替えたい。正しいのは?",
+    code: "words = ['bb', 'a', 'ccc']\nprint(sorted(words, ___))  # ['a','bb','ccc']", answer: "key=len",
+    distractors: ["key=len()", "by=len", "sort=len"],
+    explanation: "key にソート基準の関数を渡す。長さ基準は key=len(呼び出さず関数自体を渡す)。" },
+
+  { id: "fn-n1-13", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(min([4, 2, 8], key=lambda x: x % 3))",
+    answer: "4", distractors: ["2", "8", "1"],
+    explanation: "x%3 は 4→1, 2→2, 8→2。キーが最小の 1 を持つ 4 が選ばれる。" },
+
+  { id: "fn-n1-14", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "squares = [x * x for x in range(4)]\nprint(squares)",
+    answer: "[0, 1, 4, 9]", distractors: ["[1, 4, 9, 16]", "[0, 1, 2, 3]", "[0, 2, 4, 6]"],
+    explanation: "リスト内包表記で 0,1,2,3 の各2乗を集める。" },
+
+  { id: "fn-n1-15", category: "関数・関数型", module: "M10", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "def fact(n):\n    if n == 0:\n        return 1\n    return n * fact(n - 1)\nprint(fact(4))",
+    answer: "24", distractors: ["12", "10", "4"],
+    explanation: "再帰で 4*3*2*1 = 24 を計算する。" },
+
+  // ===== d2 : 9問 (fn-n2-01〜09) =====
+  { id: "fn-n2-01", category: "関数・関数型", module: "M10", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "data = [('b', 2), ('a', 3), ('c', 1)]\nprint(sorted(data, key=lambda t: t[1]))",
+    answer: "[('c', 1), ('b', 2), ('a', 3)]", distractors: ["[('a', 3), ('b', 2), ('c', 1)]", "[('b', 2), ('a', 3), ('c', 1)]", "[('a', 3), ('c', 1), ('b', 2)]"],
+    explanation: "key=t[1] で各タプルの2番目の値(数値)を基準に昇順ソートする。" },
+
+  { id: "fn-n2-02", category: "関数・関数型", module: "M10", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "d = {'x': 3, 'y': 1, 'z': 2}\nprint(sorted(d.items(), key=lambda kv: kv[1]))",
+    answer: "[('y', 1), ('z', 2), ('x', 3)]", distractors: ["[('x', 3), ('y', 1), ('z', 2)]", "[('x', 1), ('y', 2), ('z', 3)]", "[('y', 1), ('x', 3), ('z', 2)]"],
+    explanation: "items() を値 kv[1] で昇順ソート。値 1,2,3 の順に並ぶ。" },
+
+  { id: "fn-n2-03", category: "関数・関数型", module: "M10", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "def f(*args):\n    print(args)\nf(1, 2, 3)",
+    answer: "(1, 2, 3)", distractors: ["[1, 2, 3]", "1 2 3", "{1, 2, 3}"],
+    explanation: "*args は受け取った位置引数をタプルにまとめる。" },
+
+  { id: "fn-n2-04", category: "関数・関数型", module: "M10", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "def f(a, *, b):\n    return a - b\nprint(f(10, b=3))",
+    answer: "7", distractors: ["13", "エラー", "-7"],
+    explanation: "* の後ろ b はキーワード専用引数。b=3 と名前指定で渡す必要がある。" },
+
+  { id: "fn-n2-05", category: "関数・関数型", module: "M10", format: "debug", difficulty: 2,
+    question: "リスト nums の3要素を add の3引数として渡したい。正しいのは?",
+    code: "def add(a, b, c):\n    return a + b + c\nnums = [1, 2, 3]\nprint(add(___))  # 6 にしたい", answer: "*nums",
+    distractors: ["nums", "**nums", "nums[:]"],
+    explanation: "f(*nums) は呼び出し時にリストを展開し a=1,b=2,c=3 として渡す。" },
+
+  { id: "fn-n2-06", category: "関数・関数型", module: "M10", format: "debug", difficulty: 2,
+    question: "辞書 d をキーワード引数として greet に渡したい。正しいのは?",
+    code: "def greet(name, msg):\n    return msg + ', ' + name\nd = {'name': 'Bob', 'msg': 'Hi'}\nprint(greet(___))  # 'Hi, Bob'", answer: "**d",
+    distractors: ["*d", "d", "d.values()"],
+    explanation: "f(**d) は辞書のキーを引数名に対応させて展開して渡す。" },
+
+  { id: "fn-n2-07", category: "関数・関数型", module: "M10", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "def make_adder(n):\n    def add(x):\n        return x + n\n    return add\nadd5 = make_adder(5)\nprint(add5(3))",
+    answer: "8", distractors: ["5", "3", "15"],
+    explanation: "引数つきクロージャ。make_adder(5) が返す関数は n=5 を覚えており、3+5=8。" },
+
+  { id: "fn-n2-08", category: "関数・関数型", module: "M10", format: "fill", difficulty: 2,
+    question: "関数 f に常に 10 を第1引数として渡す新しい関数を作りたい。空欄は?",
+    code: "from functools import ___\nadd10 = ___(f, 10)", answer: "partial",
+    distractors: ["reduce", "wraps", "lru_cache"],
+    explanation: "functools.partial(f, 10) は一部の引数を固定した新関数を作る。" },
+
+  { id: "fn-n2-09", category: "関数・関数型", module: "M10", format: "fill", difficulty: 2,
+    question: "1から4までの積を畳み込みで求めたい。空欄に入る関数は?",
+    code: "from functools import reduce\nprint(___(lambda a, b: a * b, [1, 2, 3, 4]))", answer: "reduce",
+    distractors: ["map", "filter", "sum"],
+    explanation: "reduce は左から順に2要素ずつ畳み込む。1*2*3*4=24。" },
+
+  // ===== d3 : 9問 (fn-n3-01〜09) =====
+  { id: "fn-n3-01", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "fs = [lambda i=i: i for i in range(3)]\nprint(fs[0]())",
+    answer: "0", distractors: ["2", "3", "None"],
+    explanation: "デフォルト引数 i=i で定義時の i を束縛するため、遅延束縛を回避できる。" },
+
+  { id: "fn-n3-02", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "g = (x for x in range(3))\nprint(sum(g))\nprint(sum(g))",
+    answer: "3\n0", distractors: ["3\n3", "6\n6", "3\nエラー"],
+    explanation: "ジェネレータは一度使い切ると枯れる。2回目の sum は空で 0。" },
+
+  { id: "fn-n3-03", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print(list(zip([1, 2, 3], ['a', 'b'])))",
+    answer: "[(1, 'a'), (2, 'b')]", distractors: ["[(1, 'a'), (2, 'b'), (3, None)]", "[(1, 'a'), (2, 'b'), (3, '')]", "エラー"],
+    explanation: "zip は短い方に合わせて打ち切るので、3 は捨てられる。" },
+
+  { id: "fn-n3-04", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3], 100))",
+    answer: "106", distractors: ["6", "100", "103"],
+    explanation: "reduce の第3引数 100 は初期値。100+1+2+3=106。" },
+
+  { id: "fn-n3-05", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "r = map(lambda x: x * 2, [1, 2, 3])\nprint(list(r))\nprint(list(r))",
+    answer: "[2, 4, 6]\n[]", distractors: ["[2, 4, 6]\n[2, 4, 6]", "[1, 2, 3]\n[]", "[2, 4, 6]\nエラー"],
+    explanation: "map はイテレータを返すので、一度 list 化すると2回目は空になる。" },
+
+  { id: "fn-n3-06", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "from functools import partial\npow2 = partial(pow, 2)\nprint(pow2(5))",
+    answer: "32", distractors: ["25", "10", "7"],
+    explanation: "partial(pow, 2) は pow の第1引数を 2 に固定。pow(2, 5)=32。" },
+
+  { id: "fn-n3-07", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "g = (x * x for x in range(5))\nprint(next(g))\nprint(next(g))",
+    answer: "0\n1", distractors: ["0\n0", "1\n4", "0\n1\n4"],
+    explanation: "next はジェネレータを1つずつ進める。0の2乗、1の2乗の順。" },
+
+  { id: "fn-n3-08", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "print((lambda *a: a)(1, 2, 3))",
+    answer: "(1, 2, 3)", distractors: ["[1, 2, 3]", "6", "1"],
+    explanation: "lambda *a:a は受け取った全引数をタプルにして返す。" },
+
+  { id: "fn-n3-09", category: "関数・関数型", module: "M10", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "def gen():\n    yield 1\n    yield 2\n    yield 3\nprint(list(gen()))",
+    answer: "[1, 2, 3]", distractors: ["[3]", "1", "<generator object>"],
+    explanation: "yield する関数はジェネレータを返し、list で全値を取り出せる。" },
+
+  /* =====================================================================
+     OOP (追加)
+     ===================================================================== */
+  // ===== d1 (15問): 1概念直球 =====
+  // --- d1 fill (5) ---
+  { id: "oop-n1-01", category: "OOP", module: "M01", format: "fill", difficulty: 1,
+    question: "obj が指定クラスのインスタンスか調べる組み込み関数は?",
+    code: "if ___(x, int):\n    ...",
+    answer: "isinstance", distractors: ["typeof", "instanceof", "issubclass"],
+    explanation: "isinstance(obj, クラス) で、そのクラス(または子クラス)のインスタンスか判定する。" },
+  { id: "oop-n1-02", category: "OOP", module: "M01", format: "fill", difficulty: 1,
+    question: "あるクラスが別クラスのサブクラスか調べる組み込み関数は?",
+    code: "if ___(B, A):\n    ...",
+    answer: "issubclass", distractors: ["isinstance", "subclassof", "is_subclass"],
+    explanation: "issubclass(子, 親) でクラス同士の継承関係を判定する。引数はインスタンスでなくクラス。" },
+  { id: "oop-n1-03", category: "OOP", module: "M05", format: "fill", difficulty: 1,
+    question: "self を取らずクラスに属する関数を定義するデコレータは?",
+    code: "class M:\n    ___\n    def add(a, b):\n        return a + b",
+    answer: "@staticmethod", distractors: ["@classmethod", "@property", "@static"],
+    explanation: "@staticmethod は self も cls も受け取らない。クラスに属する普通の関数として使う。" },
+  { id: "oop-n1-04", category: "OOP", module: "M05", format: "fill", difficulty: 1,
+    question: "print() ではなく開発者向けの厳密な文字列表現を定義する特殊メソッドは?",
+    answer: "__repr__", distractors: ["__str__", "__name__", "__doc__"],
+    explanation: "__repr__ は repr() やリスト内表示で使われる開発者向け表現。__str__ は print 向け。" },
+  { id: "oop-n1-05", category: "OOP", module: "M05", format: "fill", difficulty: 1,
+    question: "len(obj) で呼ばれる、長さを定義する特殊メソッドは?",
+    code: "class Box:\n    def ___(self):\n        return 3",
+    answer: "__len__", distractors: ["__size__", "__length__", "__count__"],
+    explanation: "len(obj) は obj.__len__() を呼ぶ。整数を返すように定義する。" },
+
+  // --- d1 debug (4) ---
+  { id: "oop-n1-06", category: "OOP", module: "M07", format: "debug", difficulty: 1,
+    question: "+ 演算子を自作したい。正しい特殊メソッド名は?",
+    code: "class V:\n    def ___(self, o):\n        return V(self.n + o.n)",
+    answer: "__add__", distractors: ["__plus__", "__sum__", "add"],
+    explanation: "a + b は a.__add__(b) を呼ぶ。演算子オーバーロードは __add__ で定義する。" },
+  { id: "oop-n1-07", category: "OOP", module: "M07", format: "debug", difficulty: 1,
+    question: "インスタンスを関数のように obj() と呼べるようにしたい。正しいのは?",
+    code: "class F:\n    def ___(self):\n        return 'ok'",
+    answer: "__call__", distractors: ["__run__", "__invoke__", "__exec__"],
+    explanation: "obj() は obj.__call__() を呼ぶ。__call__ を定義するとインスタンスを呼び出せる。" },
+  { id: "oop-n1-08", category: "OOP", module: "M05", format: "debug", difficulty: 1,
+    question: "@staticmethod のメソッド定義が誤っている。正しいのは?",
+    code: "class M:\n    @staticmethod\n    def f(self):\n        return 1",
+    answer: "def f():", distractors: ["def f(self):", "def f(cls):", "static def f():"],
+    explanation: "@staticmethod は self も cls も取らない。引数は呼び出し側が渡すものだけ。" },
+  { id: "oop-n1-09", category: "OOP", module: "M01", format: "debug", difficulty: 1,
+    question: "属性が無くてもデフォルト値が欲しい。例外を出さず取得する正しい書き方は?",
+    code: "value = ___(obj, 'x', 0)",
+    answer: "getattr", distractors: ["hasattr", "obj.get", "getattribute"],
+    explanation: "getattr(obj, '名前', デフォルト) は属性が無ければデフォルトを返す。hasattr は真偽値のみ。" },
+
+  // --- d1 output (6) ---
+  { id: "oop-n1-10", category: "OOP", module: "M01", format: "output", difficulty: 1,
+    question: "次のコードの出力は?",
+    code: "class A: pass\nclass B(A): pass\nprint(isinstance(B(), A))",
+    answer: "True", distractors: ["False", "B", "エラー"],
+    explanation: "B は A の子クラスなので、B のインスタンスは isinstance で A とみなされ True。" },
+  { id: "oop-n1-11", category: "OOP", module: "M05", format: "output", difficulty: 1,
+    question: "次のコードの出力は?",
+    code: "class Dog:\n    pass\nprint(type(Dog()).__name__)",
+    answer: "Dog", distractors: ["type", "Dog()", "object"],
+    explanation: "type(obj) はクラスを返し、その .__name__ でクラス名の文字列 'Dog' が得られる。" },
+  { id: "oop-n1-12", category: "OOP", module: "M05", format: "output", difficulty: 1,
+    question: "次のコードの出力は?",
+    code: "class M:\n    @staticmethod\n    def add(a, b):\n        return a + b\nprint(M.add(2, 3))",
+    answer: "5", distractors: ["23", "エラー", "None"],
+    explanation: "@staticmethod は self を取らない普通の関数。M.add(2,3) は 2+3=5。" },
+  { id: "oop-n1-13", category: "OOP", module: "M07", format: "output", difficulty: 1,
+    question: "次のコードの出力は?",
+    code: "class B:\n    def __len__(self):\n        return 4\nprint(len(B()))",
+    answer: "4", distractors: ["1", "0", "エラー"],
+    explanation: "len(obj) は obj.__len__() を呼ぶ。ここでは 4 を返す。" },
+  { id: "oop-n1-14", category: "OOP", module: "M07", format: "output", difficulty: 1,
+    question: "次のコードの出力は?",
+    code: "class F:\n    def __call__(self):\n        return 'called'\nf = F()\nprint(f())",
+    answer: "called", distractors: ["F", "<F object>", "エラー"],
+    explanation: "__call__ を定義するとインスタンスを f() のように呼べる。戻り値は 'called'。" },
+  { id: "oop-n1-15", category: "OOP", module: "M01", format: "output", difficulty: 1,
+    question: "次のコードの出力は?",
+    code: "class C:\n    x = 1\nprint(hasattr(C(), 'x'), getattr(C(), 'y', 9))",
+    answer: "True 9", distractors: ["True None", "False 9", "1 9"],
+    explanation: "hasattr は属性の有無を真偽で返し x は有るので True。getattr は無い y にデフォルト 9 を返す。" },
+
+  // ===== d2 (9問): 2概念 or 典型ミス =====
+  // --- d2 fill (0 here, already 5 in d1) ---
+  // --- debug ---
+  { id: "oop-n2-01", category: "OOP", module: "M07", format: "debug", difficulty: 2,
+    question: "== の比較方法を自作したい。正しい特殊メソッドの定義は?",
+    code: "class P:\n    def __init__(self, n):\n        self.n = n\n    def ___(self, o):\n        return self.n == o.n",
+    answer: "__eq__", distractors: ["__equals__", "__cmp__", "__is__"],
+    explanation: "a == b は a.__eq__(b) を呼ぶ。等値比較のカスタマイズは __eq__ で行う。" },
+  // --- output ---
+  { id: "oop-n2-02", category: "OOP", module: "M07", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class V:\n    def __init__(self, n):\n        self.n = n\n    def __add__(self, o):\n        return V(self.n + o.n)\nr = V(1) + V(2) + V(3)\nprint(r.n)",
+    answer: "6", distractors: ["123", "5", "エラー"],
+    explanation: "__add__ が V を返すので連鎖できる。((1+2)+3)=6。" },
+  { id: "oop-n2-03", category: "OOP", module: "M05", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class T:\n    def __init__(self):\n        self._v = 0\n    @property\n    def v(self):\n        return self._v\n    @v.setter\n    def v(self, x):\n        self._v = x * 2\nt = T()\nt.v = 5\nprint(t.v)",
+    answer: "10", distractors: ["5", "0", "エラー"],
+    explanation: "setter が x*2 を格納するので t.v=5 で _v=10。getter はそれをそのまま返す。" },
+  { id: "oop-n2-04", category: "OOP", module: "M05", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class P:\n    def __str__(self):\n        return 'X'\n    def __repr__(self):\n        return 'Y'\nprint(f'{P()}')",
+    answer: "X", distractors: ["Y", "P", "<P object>"],
+    explanation: "f文字列の {obj} は str() 経由なので __str__ が使われ 'X'。__repr__ は使われない。" },
+  { id: "oop-n2-05", category: "OOP", module: "M07", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class E:\n    def __len__(self):\n        return 0\nprint(bool(E()))",
+    answer: "False", distractors: ["True", "0", "エラー"],
+    explanation: "真偽判定は __len__ が 0 を返すと偽とみなされる。よって bool(E()) は False。" },
+  { id: "oop-n2-06", category: "OOP", module: "M07", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class Duck:\n    def sound(self):\n        return 'quack'\nclass Dog:\n    def sound(self):\n        return 'woof'\ndef speak(a):\n    return a.sound()\nprint(speak(Duck()), speak(Dog()))",
+    answer: "quack woof", distractors: ["quack quack", "woof woof", "エラー"],
+    explanation: "ダックタイピング: 同じ sound() を持てば型に関係なく呼べる。それぞれの戻り値が出る。" },
+  { id: "oop-n2-07", category: "OOP", module: "M01", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class C:\n    def hi(self):\n        return 'hi'\nc = C()\nprint(C.hi(c))",
+    answer: "hi", distractors: ["エラー", "<bound method>", "None"],
+    explanation: "クラス経由 C.hi(c) はインスタンスを self として手動で渡す呼び方。c.hi() と等価。" },
+  { id: "oop-n2-08", category: "OOP", module: "M01", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class A:\n    def __init__(self):\n        self.x = 1\nclass B(A):\n    def __init__(self):\n        self.y = 2\nb = B()\nprint(hasattr(b, 'x'))",
+    answer: "False", distractors: ["True", "1", "エラー"],
+    explanation: "子の __init__ を定義すると親 __init__ は自動では呼ばれない。x は作られず False。" },
+  { id: "oop-n2-09", category: "OOP", module: "M01", format: "output", difficulty: 2,
+    question: "次のコードの出力は?",
+    code: "class A:\n    def __init__(self):\n        self.log = 'A'\nclass B(A):\n    def __init__(self):\n        super().__init__()\n        self.log += 'B'\nprint(B().log)",
+    answer: "AB", distractors: ["A", "B", "BA"],
+    explanation: "super().__init__() で親が log='A' を設定し、その後 'B' を足して 'AB'。" },
+
+  // ===== d3 (9問): 引っかけ =====
+  // --- output ---
+  { id: "oop-n3-01", category: "OOP", module: "M07", format: "output", difficulty: 3,
+    question: "次のコードの出力は?",
+    code: "class C:\n    items = []\n    def add(self, v):\n        self.items.append(v)\na = C()\nb = C()\na.add(1)\nb.add(2)\nprint(b.items)",
+    answer: "[1, 2]", distractors: ["[2]", "[1]", "[]"],
+    explanation: "リストをクラス変数にすると全インスタンスで共有される。a と b の append が同じリストに入る。" },
+  { id: "oop-n3-02", category: "OOP", module: "M05", format: "output", difficulty: 3,
+    question: "出力を順に並べると?",
+    code: "class P:\n    def __str__(self):\n        return 'S'\n    def __repr__(self):\n        return 'R'\np = P()\nprint(p)\nprint([p])",
+    answer: "S [R]", distractors: ["S [S]", "R [R]", "S S"],
+    explanation: "print(obj) は __str__ で 'S'、リスト内の要素は __repr__ で表示され '[R]'。" },
+  { id: "oop-n3-03", category: "OOP", module: "M05", format: "output", difficulty: 3,
+    question: "出力を順に並べると?",
+    code: "class P:\n    def __repr__(self):\n        return 'R'\np = P()\nprint(p)\nprint([p])",
+    answer: "R [R]", distractors: ["S [R]", "<P> [R]", "R R"],
+    explanation: "__str__ が無いと print も __repr__ にフォールバックする。両方とも 'R'。" },
+  { id: "oop-n3-04", category: "OOP", module: "M01", format: "output", difficulty: 3,
+    question: "次のコードの出力は?",
+    code: "class C:\n    x = 1\nc = C()\nc.x = 99\nprint(C.x)",
+    answer: "1", distractors: ["99", "100", "エラー"],
+    explanation: "c.x=99 はインスタンス属性を新設してクラス変数を隠すだけ。クラス側 C.x は 1 のまま。" },
+  { id: "oop-n3-05", category: "OOP", module: "M01", format: "output", difficulty: 3,
+    question: "出力を順に並べると?",
+    code: "class C:\n    n = 10\nc = C()\nc.n += 5\nprint(c.n, C.n)",
+    answer: "15 10", distractors: ["15 15", "10 10", "15 5"],
+    explanation: "c.n += 5 は読み(クラス変数10)→インスタンス属性へ代入。c.n=15 だが C.n は 10 のまま。" },
+  { id: "oop-n3-06", category: "OOP", module: "M07", format: "output", difficulty: 3,
+    question: "出力を順に並べると?",
+    code: "class P:\n    def __init__(self, n):\n        self.n = n\n    def __eq__(self, o):\n        return self.n == o.n\nprint(P(1) == P(1), P(1) is P(1))",
+    answer: "True False", distractors: ["True True", "False False", "False True"],
+    explanation: "__eq__ で == は値比較 True。is は同一オブジェクト判定で別物なので False。" },
+  { id: "oop-n3-07", category: "OOP", module: "M05", format: "output", difficulty: 3,
+    question: "次のコードの出力は?",
+    code: "class T:\n    @property\n    def v(self):\n        return 1\nt = T()\nt.v = 5\nprint(t.v)",
+    answer: "エラー", distractors: ["5", "1", "10"],
+    explanation: "setter の無い @property に代入すると AttributeError(has no setter)になる。" },
+  { id: "oop-n3-08", category: "OOP", module: "M05", format: "output", difficulty: 3,
+    question: "次のコードの出力は?",
+    code: "from abc import ABC, abstractmethod\nclass Base(ABC):\n    @abstractmethod\n    def run(self):\n        ...\nBase()",
+    answer: "エラー", distractors: ["None", "Base", "run"],
+    explanation: "抽象メソッド未実装のまま ABC を継承したクラスは生成できず TypeError になる。" },
+  { id: "oop-n3-09", category: "OOP", module: "M07", format: "output", difficulty: 3,
+    question: "次のコードの出力は?",
+    code: "class N:\n    def __init__(self, v):\n        self.v = v\n    def __add__(self, o):\n        return self.v + o\nprint(N(3) + 4)",
+    answer: "7", distractors: ["N", "34", "エラー"],
+    explanation: "__add__ の右辺は整数でもよい。self.v(3)+o(4)=7。返り値は素の整数。" },
+
+  /* =====================================================================
+     データ操作 (追加)
+     ===================================================================== */
+  // ===== d1 (14問: data-n1-01〜14) =====
+  { id: "data-n1-01", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "a = [1, 2]\na.extend([3, 4])\nprint(a)",
+    answer: "[1, 2, 3, 4]", distractors: ["[1, 2, [3, 4]]", "[3, 4, 1, 2]", "[1, 2, 3, 4, 3, 4]"],
+    explanation: "extend は引数の各要素を末尾に連結する。append はリストごと追加する。" },
+
+  { id: "data-n1-02", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "a = [1, 2, 3]\na.insert(1, 9)\nprint(a)",
+    answer: "[1, 9, 2, 3]", distractors: ["[9, 1, 2, 3]", "[1, 2, 9, 3]", "[1, 2, 3, 9]"],
+    explanation: "insert(i, x) は index i の位置に x を割り込ませ、以降を後ろへずらす。" },
+
+  { id: "data-n1-03", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "a = [1, 2, 3]\nprint(a.pop())",
+    answer: "3", distractors: ["1", "[1, 2]", "None"],
+    explanation: "list.pop() は引数なしで末尾要素を取り除き、その値を返す。" },
+
+  { id: "data-n1-04", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "a = [10, 20, 30]\nprint(a.index(20))",
+    answer: "1", distractors: ["20", "2", "0"],
+    explanation: "index(x) は x が最初に現れる位置(index)を返す。値ではない。" },
+
+  { id: "data-n1-05", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "d = {'a': 1, 'b': 2}\nprint(list(d.values()))",
+    answer: "[1, 2]", distractors: ["['a', 'b']", "[('a', 1), ('b', 2)]", "{1, 2}"],
+    explanation: "values() は値のビューを返す。list() で値のリストになる。" },
+
+  { id: "data-n1-06", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "d = {'a': 1}\nd.update({'b': 2})\nprint(d)",
+    answer: "{'a': 1, 'b': 2}", distractors: ["{'a': 1}", "{'b': 2}", "{'a': 1, 'b': 2, 'b': 2}"],
+    explanation: "update は別の辞書のキー/値をまとめて取り込む。挿入順で表示される。" },
+
+  { id: "data-n1-07", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(''.join(['a', 'b', 'c']))",
+    answer: "abc", distractors: ["['a', 'b', 'c']", "a b c", "a,b,c"],
+    explanation: "区切り文字.join(リスト) で文字列を連結する。空文字なら区切りなし。" },
+
+  { id: "data-n1-08", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "print(dict(zip(['a', 'b'], [1, 2])))",
+    answer: "{'a': 1, 'b': 2}", distractors: ["{'a': 'b', 1: 2}", "[('a', 1), ('b', 2)]", "{1: 'a', 2: 'b'}"],
+    explanation: "zip でキーと値を対にし、dict() に渡すと辞書になる。" },
+
+  { id: "data-n1-09", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "a, b, c = (1, 2, 3)\nprint(b)",
+    answer: "2", distractors: ["1", "3", "(1, 2, 3)"],
+    explanation: "タプルアンパックで左辺の各変数に順に代入される。b は 2 番目の要素。" },
+
+  { id: "data-n1-10", category: "データ操作", module: "M03", format: "output", difficulty: 1,
+    question: "出力を順に並べると?", code: "for i, v in enumerate(['a', 'b']):\n    print(i, v)",
+    answer: "0 a 1 b", distractors: ["1 a 2 b", "a 0 b 1", "0 1 a b"],
+    explanation: "enumerate は (index, 要素) を順に返す。既定の開始は 0。" },
+
+  { id: "data-n1-11", category: "データ操作", module: "M03", format: "fill", difficulty: 1,
+    question: "リストの全要素を別のリストの末尾に連結する(1つずつ追加する)メソッドは?",
+    code: "a = [1, 2]\na.___([3, 4])  # -> [1, 2, 3, 4]",
+    answer: "extend", distractors: ["append", "insert", "join"],
+    explanation: "extend は要素を1つずつ連結。append([3,4]) だと [3,4] ごと1要素として入る。" },
+
+  { id: "data-n1-12", category: "データ操作", module: "M03", format: "fill", difficulty: 1,
+    question: "辞書からキーと値のペアをまとめて取り出すメソッドは?",
+    code: "d = {'a': 1}\nfor k, v in d.___():\n    print(k, v)",
+    answer: "items", distractors: ["keys", "values", "pairs"],
+    explanation: "items() は (キー, 値) のタプルを順に返す。keys() はキー、values() は値のみ。" },
+
+  { id: "data-n1-13", category: "データ操作", module: "M03", format: "fill", difficulty: 1,
+    question: "リスト末尾の要素を取り除いてその値を返すメソッドは?",
+    code: "a = [1, 2, 3]\nx = a.___()  # x は 3、a は [1, 2]",
+    answer: "pop", distractors: ["remove", "del", "discard"],
+    explanation: "pop() は末尾(または index 指定)を取り除き値を返す。remove(値) は値を指定して削除し戻り値なし。" },
+
+  { id: "data-n1-14", category: "データ操作", module: "M03", format: "debug", difficulty: 1,
+    question: "リストから値 2 を1つ削除したい。正しい行は?",
+    code: "a = [1, 2, 3]\n# a から 2 を削除したい",
+    answer: "a.remove(2)", distractors: ["a.delete(2)", "a.pop(2)", "del a(2)"],
+    explanation: "remove(値) は指定値を1つ削除。pop(2) は index 2 の要素を消すので意味が違う。" },
+
+  // ===== d2 (9問: data-n2-01〜09) =====
+  { id: "data-n2-01", category: "データ操作", module: "M03", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "print(({1, 2} | {2, 3}) == {1, 2, 3})",
+    answer: "True", distractors: ["False", "{1, 2, 3}", "{1, 2, 2, 3}"],
+    explanation: "| は和集合。{1,2} と {2,3} の和は {1,2,3} なので等しく True。" },
+
+  { id: "data-n2-02", category: "データ操作", module: "M03", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "print(({1, 2, 3} & {2, 3, 4}) == {2, 3})",
+    answer: "True", distractors: ["False", "{2, 3}", "{1, 4}"],
+    explanation: "& は積集合(共通要素)。共通は {2,3} なので True。" },
+
+  { id: "data-n2-03", category: "データ操作", module: "M03", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "print(({1, 2} ^ {2, 3}) == {1, 3})",
+    answer: "True", distractors: ["False", "{1, 3}", "{2}"],
+    explanation: "^ は対称差(片方だけにある要素)。1 と 3 が残り {1,3} なので True。" },
+
+  { id: "data-n2-04", category: "データ操作", module: "M03", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "a = [1, 2, 3, 4]\na[1:3] = [9]\nprint(a)",
+    answer: "[1, 9, 4]", distractors: ["[1, 9, 3, 4]", "[1, [9], 4]", "[1, 9, 9, 4]"],
+    explanation: "スライス代入は範囲ごと差し替える。2要素を1要素に置き換えるので長さが縮む。" },
+
+  { id: "data-n2-05", category: "データ操作", module: "M03", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "d = {'a': 1, 'b': 2}\nprint(d.pop('a'))",
+    answer: "1", distractors: ["'a'", "{'b': 2}", "None"],
+    explanation: "dict.pop(キー) はそのキーを削除し、対応する値を返す。" },
+
+  { id: "data-n2-06", category: "データ操作", module: "M03", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "print([1, 2, 3, 4][10:])",
+    answer: "[]", distractors: ["[4]", "エラー", "None"],
+    explanation: "範囲外のスライスは例外にならず空リストを返す。インデックス単体だと IndexError。" },
+
+  { id: "data-n2-07", category: "データ操作", module: "M03", format: "fill", difficulty: 2,
+    question: "リストから index 1 の要素そのものを削除する文は?",
+    code: "a = [1, 2, 3]\n___ a[1]  # -> [1, 3]",
+    answer: "del", distractors: ["pop", "remove", "drop"],
+    explanation: "del a[1] は文で、指定位置の要素を削除する。a.pop(1) でも可だが remove は値指定。" },
+
+  { id: "data-n2-08", category: "データ操作", module: "M03", format: "fill", difficulty: 2,
+    question: "集合 s が {1,2,3} の部分集合かを判定するメソッドは?",
+    code: "s = {1, 2}\nprint(s.___({1, 2, 3}))  # -> True",
+    answer: "issubset", distractors: ["issuperset", "contains", "subset"],
+    explanation: "issubset は自身が引数集合に含まれるかを返す。逆向きは issuperset。" },
+
+  { id: "data-n2-09", category: "データ操作", module: "M03", format: "debug", difficulty: 2,
+    question: "辞書 d にキー 'b' がある時だけ True にしたい。in は何を見る?",
+    code: "d = {'a': 1, 'b': 2}\n# 'b' があるか調べる正しい式は?",
+    answer: "'b' in d", distractors: ["2 in d", "'b' in d.values()", "d.has('b')"],
+    explanation: "dict に対する in は『キー』の存在を調べる。値を見るなら in d.values()。" },
+
+  // ===== d3 (9問: data-n3-01〜09) 引っかけ =====
+  { id: "data-n3-01", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "a = [[1], [2]]\nb = a[:]\nb[0].append(9)\nprint(a)",
+    answer: "[[1, 9], [2]]", distractors: ["[[1], [2]]", "[[1, 9], [2, 9]]", "[[9], [2]]"],
+    explanation: "b = a[:] は浅いコピー。外側は別物だが内側のリストは共有され、変更が a にも及ぶ。" },
+
+  { id: "data-n3-02", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "x = [3, 1, 2].sort()\nprint(x)",
+    answer: "None", distractors: ["[1, 2, 3]", "[3, 1, 2]", "エラー"],
+    explanation: "list.sort() はその場で並べ替えて None を返す。並べた結果が欲しいなら sorted()。" },
+
+  { id: "data-n3-03", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "d = dict.fromkeys(['a', 'b'], [])\nd['a'].append(1)\nprint(d)",
+    answer: "{'a': [1], 'b': [1]}", distractors: ["{'a': [1], 'b': []}", "{'a': [], 'b': []}", "{'a': 1, 'b': 1}"],
+    explanation: "fromkeys の既定値は全キーで同一オブジェクトを共有する。片方の変更が両方に出る。" },
+
+  { id: "data-n3-04", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "d = {'a': 3, 'b': 1, 'c': 2}\nprint(sorted(d, key=d.get))",
+    answer: "['b', 'c', 'a']", distractors: ["['a', 'b', 'c']", "[1, 2, 3]", "['a', 'c', 'b']"],
+    explanation: "sorted(d) はキーを反復し、key=d.get で値を基準に並べる。値1,2,3 の順に b,c,a。" },
+
+  { id: "data-n3-05", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "t = ([1],)\ntry:\n    t[0] += [2]\nexcept TypeError:\n    pass\nprint(t)",
+    answer: "([1, 2],)", distractors: ["([1],)", "([1, 2])", "エラー"],
+    explanation: "t[0] += [2] は中身を拡張(成功)した後に再代入で TypeError。変更は反映され ([1,2],) になる。" },
+
+  { id: "data-n3-06", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "a, (b, c) = 1, (2, 3)\nprint(c)",
+    answer: "3", distractors: ["2", "1", "(2, 3)"],
+    explanation: "ネストしたアンパック。右の (2,3) が (b,c) に分配され c は 3。" },
+
+  { id: "data-n3-07", category: "データ操作", module: "M03", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "a = [1, 2, 3]\na[::2] = [7, 9]\nprint(a)",
+    answer: "[7, 2, 9]", distractors: ["[7, 9, 3]", "[1, 7, 9]", "[7, 2, 9, 3]"],
+    explanation: "拡張スライス代入は1つおき(index 0 と 2)を置き換える。要素数が一致する必要がある。" },
+
+  { id: "data-n3-08", category: "データ操作", module: "M03", format: "debug", difficulty: 3,
+    question: "[3,1,2] を昇順に並べた新しいリストを得たい。x が None になる誤りはどれ?",
+    code: "nums = [3, 1, 2]\nx = nums.____  # x にソート結果を入れたい",
+    answer: "x = nums.sort()", distractors: ["x = sorted(nums)", "x = sorted(nums, reverse=False)", "x = nums.copy(); x.sort()"],
+    explanation: "sort() は in-place で None を返す。新リストが欲しいなら sorted() を使う。" },
+
+  { id: "data-n3-09", category: "データ操作", module: "M03", format: "debug", difficulty: 3,
+    question: "2次元グリッドを作る。全行が連動してしまう誤った初期化はどれ?",
+    code: "# 3行2列を 0 で初期化したい\ngrid = ____",
+    answer: "[[0] * 2] * 3", distractors: ["[[0] * 2 for _ in range(3)]", "[[0, 0] for _ in range(3)]", "[[0, 0], [0, 0], [0, 0]]"],
+    explanation: "[行]*3 は同じ内側リストを3回参照する。1行への代入が全行に波及する。内包表記なら独立。" },
+
+  /* =====================================================================
+     プログラム構成・堅牢性 (追加)
+     ===================================================================== */
+  // ===== d1 (14問) rob-n1-01〜14 =====
+  { id: "rob-n1-01", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "try:\n    x = int('10')\nexcept ValueError:\n    x = -1\nprint(x)",
+    answer: "10", distractors: ["-1", "エラー", "None"],
+    explanation: "int('10') は成功するので except は通らず x=10。" },
+
+  { id: "rob-n1-02", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "d = {'a': 1}\ntry:\n    print(d['b'])\nexcept KeyError:\n    print('no key')",
+    answer: "no key", distractors: ["1", "None", "エラー"],
+    explanation: "存在しないキー 'b' で KeyError が起き except が処理する。" },
+
+  { id: "rob-n1-03", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "assert 1 + 1 == 2\nprint('ok')",
+    answer: "ok", distractors: ["True", "エラー", "2"],
+    explanation: "assert の条件が真なら何も起きず、続けて 'ok' が出力される。" },
+
+  { id: "rob-n1-04", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "x = -3\ntry:\n    assert x > 0\nexcept AssertionError:\n    print('fail')",
+    answer: "fail", distractors: ["ok", "エラー", "-3"],
+    explanation: "x>0 が偽なので AssertionError が起き except が 'fail' を出力。" },
+
+  { id: "rob-n1-05", category: "プログラム構成・堅牢性", module: "M02", format: "fill", difficulty: 1,
+    question: "条件が偽のとき AssertionError を発生させる文のキーワードは?", code: "___ x > 0, 'x must be positive'",
+    answer: "assert", distractors: ["raise", "check", "verify"],
+    explanation: "assert 条件, メッセージ で条件が偽のとき例外を発生させる。" },
+
+  { id: "rob-n1-06", category: "プログラム構成・堅牢性", module: "M06", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "from math import pi\nprint(round(pi, 2))",
+    answer: "3.14", distractors: ["3.0", "3.1415", "3"],
+    explanation: "from math import pi で pi を取り込み、小数2桁に丸めると 3.14。" },
+
+  { id: "rob-n1-07", category: "プログラム構成・堅牢性", module: "M06", format: "fill", difficulty: 1,
+    question: "import したモジュールに別名を付けるキーワードは?", code: "import numpy ___ np",
+    answer: "as", distractors: ["alias", "to", "name"],
+    explanation: "import モジュール as 別名 で短い名前を付けられる。" },
+
+  { id: "rob-n1-08", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "try:\n    raise KeyError('k')\nexcept KeyError:\n    print('caught')",
+    answer: "caught", distractors: ["k", "KeyError", "エラー"],
+    explanation: "raise した KeyError を同じ型の except が捕捉して 'caught' を出力。" },
+
+  { id: "rob-n1-09", category: "プログラム構成・堅牢性", module: "M02", format: "fill", difficulty: 1,
+    question: "ファイルが見つからないときに発生する例外名は?",
+    answer: "FileNotFoundError", distractors: ["IOError", "FileError", "NotFoundError"],
+    explanation: "存在しないファイルを open すると FileNotFoundError が発生する。" },
+
+  { id: "rob-n1-10", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "try:\n    raise ValueError('bad')\nexcept ValueError as e:\n    print(e.args[0])",
+    answer: "bad", distractors: ["('bad',)", "ValueError", "エラー"],
+    explanation: "e.args は引数のタプルで、その先頭 e.args[0] は 'bad'。" },
+
+  { id: "rob-n1-11", category: "プログラム構成・堅牢性", module: "M06", format: "output", difficulty: 1,
+    question: "次のコードの出力は?", code: "import math\nprint(math.gcd(12, 8))",
+    answer: "4", distractors: ["2", "24", "96"],
+    explanation: "12 と 8 の最大公約数は 4。" },
+
+  { id: "rob-n1-12", category: "プログラム構成・堅牢性", module: "M02", format: "fill", difficulty: 1,
+    question: "with 文でファイルを開くと、ブロック終了時に自動で呼ばれて閉じてくれる仕組みを何と呼ぶ?",
+    answer: "コンテキストマネージャ", distractors: ["イテレータ", "デコレータ", "ジェネレータ"],
+    explanation: "with 文が利用するのはコンテキストマネージャで、終了時に自動で後始末する。" },
+
+  { id: "rob-n1-13", category: "プログラム構成・堅牢性", module: "M02", format: "debug", difficulty: 1,
+    question: "AssertionError ではなく ValueError を出したい。正しい書き方は?", code: "assert n > 0",
+    answer: "if n <= 0: raise ValueError('neg')", distractors: ["assert ValueError(n > 0)", "raise assert n > 0", "except n > 0"],
+    explanation: "条件で明示的に例外型を選ぶなら if で判定して raise する。" },
+
+  { id: "rob-n1-14", category: "プログラム構成・堅牢性", module: "M06", format: "debug", difficulty: 1,
+    question: "floor だけを名前で直接使いたい。正しい import は?", code: "___\nprint(floor(3.9))",
+    answer: "from math import floor", distractors: ["import math.floor", "from math.floor import", "import floor from math"],
+    explanation: "from モジュール import 名前 で個別の関数を直接呼べる。" },
+
+  // ===== d2 (9問) rob-n2-01〜09 =====
+  { id: "rob-n2-01", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "try:\n    x = int('5')\nexcept ValueError:\n    print('ve')\nelse:\n    print('else')",
+    answer: "else", distractors: ["ve", "5", "エラー"],
+    explanation: "try が例外なく成功したので else 節が走り 'else' を出力。" },
+
+  { id: "rob-n2-02", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 2,
+    question: "出力を順に並べると?", code: "try:\n    raise KeyError('k')\nexcept LookupError:\n    print('lookup')\nfinally:\n    print('fin')",
+    answer: "lookup fin", distractors: ["fin lookup", "lookup", "fin"],
+    explanation: "KeyError は LookupError の subclass なので捕捉され、その後 finally も実行される。" },
+
+  { id: "rob-n2-03", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "try:\n    try:\n        raise ValueError('inner')\n    except KeyError:\n        print('key')\nexcept ValueError:\n    print('val')",
+    answer: "val", distractors: ["key", "inner", "エラー"],
+    explanation: "内側は KeyError しか捕まえないので ValueError は外側へ伝播し 'val' を出力。" },
+
+  { id: "rob-n2-04", category: "プログラム構成・堅牢性", module: "M02", format: "fill", difficulty: 2,
+    question: "捕まえた例外を再送出して呼び出し元へ伝える、引数なしの文は?", code: "try:\n    risky()\nexcept Exception:\n    log()\n    ___",
+    answer: "raise", distractors: ["raise e", "return", "pass"],
+    explanation: "引数なしの raise は現在処理中の例外をそのまま再送出する。" },
+
+  { id: "rob-n2-05", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "def f(x: int) -> int:\n    return x\nprint(f('ab') * 2)",
+    answer: "abab", distractors: ["エラー", "ab", "4"],
+    explanation: "型ヒントは実行時に強制されないので 'ab' がそのまま渡り 'ab'*2 で 'abab'。" },
+
+  { id: "rob-n2-06", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "try:\n    raise IndexError()\nexcept LookupError:\n    print('A')\nexcept IndexError:\n    print('B')",
+    answer: "A", distractors: ["B", "A B", "エラー"],
+    explanation: "上から順に評価され、先に書いた基底クラス LookupError が IndexError を捕捉する。" },
+
+  { id: "rob-n2-07", category: "プログラム構成・堅牢性", module: "M06", format: "output", difficulty: 2,
+    question: "次のコードの出力は?", code: "import math\nprint(math.__name__)",
+    answer: "math", distractors: ["__main__", "module", "math.py"],
+    explanation: "モジュールオブジェクトの __name__ 属性はそのモジュール名 'math'。" },
+
+  { id: "rob-n2-08", category: "プログラム構成・堅牢性", module: "M02", format: "debug", difficulty: 2,
+    question: "具体的な例外を握りつぶさず処理し、想定外は伝播させたい。except 順序として正しいのは?",
+    answer: "具体的な FileNotFoundError を先に、一般的な Exception を後に書く",
+    distractors: ["一般的な Exception を先に、具体的な型を後に書く", "全て except: だけにまとめる", "順序はどう書いても同じ"],
+    explanation: "except は上から評価されるので、具体的な型を先に書かないと一般型に先取りされる。" },
+
+  { id: "rob-n2-09", category: "プログラム構成・堅牢性", module: "M02", format: "debug", difficulty: 2,
+    question: "例外オブジェクトをメッセージ付きで使いたい。正しい except 節は?", code: "try:\n    ...\nexcept ValueError ___:\n    print(e)",
+    answer: "as e", distractors: ["= e", ", e", "-> e"],
+    explanation: "except 型 as 名前 で捕捉した例外を変数に束縛する。" },
+
+  // ===== d3 (9問) rob-n3-01〜09 =====
+  { id: "rob-n3-01", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 3,
+    question: "出力を順に並べると?", code: "def f():\n    try:\n        return 'try'\n    finally:\n        print('fin')\nprint(f())",
+    answer: "fin try", distractors: ["try fin", "try", "fin"],
+    explanation: "return の値は保留され finally が先に実行されるので 'fin' を出力後に 'try' が返る。" },
+
+  { id: "rob-n3-02", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 3,
+    question: "出力を順に並べると?", code: "for i in range(3):\n    try:\n        if i == 1:\n            break\n        print(i)\n    finally:\n        print('f', i)",
+    answer: "0 f 0 f 1", distractors: ["0 f 0 1 f 1", "0 1 f 0 f 1", "0 f 0"],
+    explanation: "break の前にも finally は実行される。i=0 で 0,f 0、i=1 は break 前に f 1。" },
+
+  { id: "rob-n3-03", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "class MyErr(Exception):\n    pass\ntry:\n    try:\n        raise ValueError('v')\n    except ValueError:\n        raise MyErr('m')\nexcept MyErr as e:\n    print(e)",
+    answer: "m", distractors: ["v", "MyErr", "エラー"],
+    explanation: "except 内で別の例外 MyErr を raise すると外側で捕捉され 'm' を出力。" },
+
+  { id: "rob-n3-04", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "try:\n    try:\n        raise ValueError('v')\n    except ValueError as e:\n        raise RuntimeError('r') from e\nexcept RuntimeError as e:\n    print(e.__cause__)",
+    answer: "v", distractors: ["r", "None", "エラー"],
+    explanation: "raise ... from e は元例外を __cause__ に保持するため、その文字列表現は 'v'。" },
+
+  { id: "rob-n3-05", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "try:\n    raise ValueError('a')\nexcept Exception:\n    print('general')\nexcept ValueError:\n    print('value')",
+    answer: "general", distractors: ["value", "general value", "エラー"],
+    explanation: "上から評価されるので先に書いた Exception が捕捉し、後の ValueError は到達しない。" },
+
+  { id: "rob-n3-06", category: "プログラム構成・堅牢性", module: "M02", format: "output", difficulty: 3,
+    question: "次のコードの出力は?", code: "def g():\n    try:\n        return 1\n    finally:\n        return 2\nprint(g())",
+    answer: "2", distractors: ["1", "1 2", "エラー"],
+    explanation: "finally 内の return が try の return を上書きするため 2 が返る。" },
+
+  { id: "rob-n3-07", category: "プログラム構成・堅牢性", module: "M04", format: "output", difficulty: 3,
+    question: "出力を順に並べると?", code: "from contextlib import contextmanager\n@contextmanager\ndef cm():\n    print('a')\n    yield\n    print('b')\nwith cm():\n    print('body')",
+    answer: "a body b", distractors: ["a b body", "body a b", "a body"],
+    explanation: "yield 前が入り口、yield 後が出口なので a -> body -> b の順に出力される。" },
+
+  { id: "rob-n3-08", category: "プログラム構成・堅牢性", module: "M02", format: "fill", difficulty: 3,
+    question: "python3 -O などで実行すると無効化され、本番の入力検証に頼ってはいけない文は?",
+    answer: "assert", distractors: ["raise", "try", "with"],
+    explanation: "assert は最適化フラグ -O で除去されるため、本番の検証には raise を使う。" },
+
+  { id: "rob-n3-09", category: "プログラム構成・堅牢性", module: "M02", format: "fill", difficulty: 3,
+    question: "raise ... from e で元の例外が記録される属性名は?", code: "except A as e:\n    raise B() from e\n# 後で e2.______ で元例外を参照",
+    answer: "__cause__", distractors: ["__context__", "__traceback__", "__args__"],
+    explanation: "明示的な raise ... from e では元例外が __cause__ に設定される。" }
 ];
